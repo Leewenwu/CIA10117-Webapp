@@ -6,19 +6,25 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-
 public class OrderServelt extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res) 
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
-		
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		try {
+			// 這裡實作業務邏輯
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("errorMsg", "系統發生錯誤：" + e.getMessage());
+			RequestDispatcher failureView = req.getRequestDispatcher("/errorPage.jsp");
+			failureView.forward(req, res);
+		}
 	}
-	}
+
+}
 
 //		req.setCharacterEncoding("UTF-8");
 //		String action = req.getParameter("action");
