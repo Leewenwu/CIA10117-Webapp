@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.order.model.OrderService;
 import com.order.model.OrderVO;
 
-public class OrderServelt extends HttpServlet {
+public class OrderServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
