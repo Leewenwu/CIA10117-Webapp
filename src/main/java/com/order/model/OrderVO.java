@@ -5,29 +5,29 @@ public class OrderVO implements java.io.Serializable {
 
 	// TODO Auto-generated method stub
 	private Integer orderid;
-	private String sessionid;
-	private String memberid;
+	private Integer sessionid;
+	private Integer memberid;
 	private Date orderdate;
 	private Integer number;
 	private Integer orderstate;
 	private Date bookingdate;
-	private Integer ordernote;
+	private String ordernote;
 	public Integer getOrderid() {
 		return orderid;
 	}
 	public void setOrderid(Integer orderid) {
 		this.orderid = orderid;
 	}
-	public String getSessionid() {
+	public Integer getSessionid() {
 		return sessionid;
 	}
-	public void setSessionid(String sessionid) {
+	public void setSessionid(Integer sessionid) {
 		this.sessionid = sessionid;
 	}
-	public String getMemberid() {
+	public Integer getMemberid() {
 		return memberid;
 	}
-	public void setMemberid(String memberid) {
+	public void setMemberid(Integer memberid) {
 		this.memberid = memberid;
 	}
 	public Date getOrderdate() {
@@ -54,10 +54,10 @@ public class OrderVO implements java.io.Serializable {
 	public void setBookingdate(Date bookingdate) {
 		this.bookingdate = bookingdate;
 	}
-	public Integer getOrdernote() {
+	public String getOrdernote() {
 		return ordernote;
 	}
-	public void setOrdernote(Integer ordernote) {
+	public void setOrdernote(String ordernote) {
 		this.ordernote = ordernote;
 	}
 

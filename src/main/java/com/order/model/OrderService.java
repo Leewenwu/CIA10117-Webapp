@@ -12,12 +12,11 @@ public class OrderService {
 
 	}
 
-	public OrderVO addOrder(Integer orderid, String memberid, java.sql.Date orderdate, Integer number,
-			Integer orderstate, Date bookingdate, Integer ordernote) {
+	public OrderVO addOrder(Integer orderid, Integer memberid, java.sql.Date orderdate, Integer number,
+			Integer orderstate, Date bookingdate, String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
 
-		// 设置OrderVO对象的各个属性
 		ordvo.setOrderid(orderid);
 		ordvo.setMemberid(memberid);
 		ordvo.setOrderdate(orderdate);
@@ -26,15 +25,13 @@ public class OrderService {
 		ordvo.setBookingdate(bookingdate);
 		ordvo.setOrdernote(ordernote);
 
-		// 使用DAO将订单信息插入数据库
 		dao.insert(ordvo);
 
-		// 返回包含了新增订单信息的OrderVO对象
 		return ordvo;
 
 	}
 
-	public OrderVO updateOrder(Integer ordernote) {
+	public OrderVO updateOrder(String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
 
@@ -53,7 +50,7 @@ public class OrderService {
 
 	}
 
-	public List<OrderVO> getALL() {
+	public List<OrderVO> getAll() {
 		return dao.getAll();
 	}
 }

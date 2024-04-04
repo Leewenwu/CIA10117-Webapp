@@ -26,7 +26,7 @@ public class Test_DataSource extends HttpServlet {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("select * from reserve_order");
 				while (rs.next()) {
-					out.println("empNo = " + rs.getString(1));
+					out.println("erdid = " + rs.getString(1));
 				}
 				conn.close();
 			}

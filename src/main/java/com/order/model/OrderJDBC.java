@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class OrderJDBC implements OrderDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/db01?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/mytest?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "1234";
 
@@ -26,12 +26,12 @@ public class OrderJDBC implements OrderDAO_interface {
 
 		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_STMT)) {
-			pstmt.setString(1, ordVO.getSessionid());
-			pstmt.setString(2, ordVO.getMemberid());
+			pstmt.setInt(1, ordVO.getSessionid());
+			pstmt.setInt(2, ordVO.getMemberid());
 			pstmt.setDate(3, ordVO.getOrderdate());
 			pstmt.setInt(4, ordVO.getNumber());
 			pstmt.setDate(5, ordVO.getBookingdate());
-			pstmt.setInt(6, ordVO.getOrdernote());
+			pstmt.setString(6, ordVO.getOrdernote());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -44,7 +44,7 @@ public class OrderJDBC implements OrderDAO_interface {
 	public void update(OrderVO ordVO) {
 		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
-			pstmt.setInt(1, ordVO.getOrdernote());
+			pstmt.setString(1, ordVO.getOrdernote());
 			pstmt.setInt(2, ordVO.getOrderid()); // 第二個問號對應的是訂單ID
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -79,13 +79,13 @@ public class OrderJDBC implements OrderDAO_interface {
 				while (rs.next()) {
 					ordVO = new OrderVO();
 					ordVO.setOrderid(rs.getInt("reserve_order_id"));
-					ordVO.setSessionid(rs.getString("reserve_session_id"));
-					ordVO.setMemberid(rs.getString("member_id"));
+					ordVO.setSessionid(rs.getInt("reserve_session_id"));
+					ordVO.setMemberid(rs.getInt("member_id"));
 					ordVO.setOrderdate(rs.getDate("reserve_order_date"));
 					ordVO.setNumber(rs.getInt("reserve_number"));
 					ordVO.setOrderstate(rs.getInt("reserve_order_state"));
 					ordVO.setBookingdate(rs.getDate("booking_date"));
-					ordVO.setOrdernote(rs.getInt("order_note"));
+					ordVO.setOrdernote(rs.getString("order_note"));
 				}
 			}
 		} catch (SQLException e) {
@@ -105,13 +105,13 @@ public class OrderJDBC implements OrderDAO_interface {
 			while (rs.next()) {
 				OrderVO ordVO = new OrderVO();
 				ordVO.setOrderid(rs.getInt("reserve_order_id"));
-				ordVO.setSessionid(rs.getString("reserve_session_id"));
-				ordVO.setMemberid(rs.getString("member_id"));
+				ordVO.setSessionid(rs.getInt("reserve_session_id"));
+				ordVO.setMemberid(rs.getInt("member_id"));
 				ordVO.setOrderdate(rs.getDate("reserve_order_date"));
 				ordVO.setNumber(rs.getInt("reserve_number"));
 				ordVO.setOrderstate(rs.getInt("reserve_order_state"));
 				ordVO.setBookingdate(rs.getDate("booking_date"));
-				ordVO.setOrdernote(rs.getInt("order_note"));
+				ordVO.setOrdernote(rs.getString("order_note"));
 				list.add(ordVO);
 			}
 		} catch (SQLException e) {
