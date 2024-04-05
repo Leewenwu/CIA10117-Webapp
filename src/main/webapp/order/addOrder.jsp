@@ -6,7 +6,6 @@
 <%
   OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
 
-
 %>
 <html>
 <head>
@@ -63,6 +62,14 @@ button:hover {
 </head>
 <body>
 
+
+
+
+	<div class="form-container">
+	
+    <h2>新增訂單</h2>
+    
+    
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -71,22 +78,41 @@ button:hover {
 		</c:forEach>
 	</ul>
 </c:if>
-
-
-	<div class="form-container">
-	
-    <h2>新增訂單</h2>
+    
     <form action="order.do" method="post">
     
-        <label for="sessionid">場次編號(101-104):</label>
-        <input type="text"    >
+        <label for="sessionid">場次編號:</label>
+        <input type="text"   name="sessionid" >
         
         
-        <label for="memberid">會員編號:</label>
-        <input type="text" >
+        <label for="memberid">會員編號1001-1007:</label>
+        <select name="memberid" id="memberid">
+		    <option value="1001">1001</option>
+		    <option value="1002">1002</option>
+		    <option value="1003">1003</option>
+		    <option value="1004">1004</option>
+		    <option value="1005">1005</option>
+		    <option value="1006">1006</option>
+		    <option value="1007">1007</option>
+			</select>
+       
+        
+   
+    
+    <!--  <label for="memberid">會員編號:</label>
+    <jsp:useBean id="ordSvc1" scope="page" class="com.order.model.OrderService" />        
+       <select size="3" name="memberid">
+         <c:forEach var="orderVO" items="${ordSvc1.all}" > 
+          <option value="${orderVO.memberid}">${orderVO.memberid}
+         </c:forEach>   
+       </select>          -->
+        
+        
+        
+        
         
          <label for="orderdate">訂單日期:</label>
-        <input type="date"  id="Orderdate" name="Orderdate">
+        <input type="date"  name="orderdate" id="orderdate">
         
         <script>
 		  // 獲取當前日期
@@ -98,19 +124,19 @@ button:hover {
 		  today = yyyy + '-' + mm + '-' + dd;
 		  
 		  // 設置input元素的值為當前日期
-		  document.getElementById('Orderdate').value = today;
+		  document.getElementById('orderdate').value = today;
 		</script>
         
         
         
         <label for="Number">人數:</label>
-        <input type="text"  name="">
+        <input type="text"  name="number">
         
         <label for="Bookingdate">預定日期:</label>
-        <input type="date" name="">
+        <input type="date" name="bookingdate">
         	
         <label for="Ordernote">備註:</label>
-        <input type="TEXT"  name="">
+        <input type="TEXT"  name="ordernote">
         
          <input type="hidden" name="action" value="insert">
         <button type="submit" value="送出"> 新增</button>

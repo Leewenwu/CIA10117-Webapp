@@ -55,6 +55,7 @@
     <FORM METHOD="post" ACTION="order.do" >
         <b>輸入訂單編號 (如2001):</b>
         <input type="text" name="ordid">
+        
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>

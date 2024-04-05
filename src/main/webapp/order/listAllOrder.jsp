@@ -16,7 +16,7 @@
 <title>所有員工資料</title>
 
 <style>
-  table#table-1 {
+  table#table-1 {	
 	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;

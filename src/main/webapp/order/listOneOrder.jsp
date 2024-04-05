@@ -6,7 +6,6 @@
 <%
   OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
 
-
 %>
 
 <html>

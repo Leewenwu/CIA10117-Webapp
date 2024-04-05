@@ -43,8 +43,8 @@ public class OrderDAO implements OrderDAO_interface {
 
 	@Override
 	public void insert(OrderVO ordVO) {
-		String INSERT_STMT = "INSERT INTO reserve_order" + " (reserve_session_id, member_id, reserve_order_date,"
-				+ " reserve_number, booking_date, order_note) " + "VALUES (?, ?, ?, ?, ?, ?)";
+		String INSERT_STMT = "INSERT INTO reserve_order (reserve_session_id, member_id, reserve_order_date,"
+				+ " reserve_number, booking_date, order_note) VALUES (?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_STMT)) {
 			pstmt.setInt(1, ordVO.getSessionid());
@@ -56,7 +56,7 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderdDAO錯誤");
+			System.out.println("OrderdDAO錯誤1");
 		}
 
 	}
@@ -71,7 +71,7 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderDAO錯誤");
+			System.out.println("OrderDAO錯誤2");
 		}
 
 	}
@@ -86,7 +86,7 @@ public class OrderDAO implements OrderDAO_interface {
 			System.out.println(rowsAffected + " rows affected.");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderDAO錯誤");
+			System.out.println("OrderDAO錯誤3");
 		}
 	}
 
@@ -197,7 +197,7 @@ public class OrderDAO implements OrderDAO_interface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderDAO錯誤~~~");
+			System.out.println("OrderDAO錯誤5~~~");
 		}
 		return list;
 	}
