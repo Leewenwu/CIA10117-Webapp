@@ -1,6 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-	pageEncoding="Big5"%>
-<%@ page import="com.order.controller.*"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.order.model.*"%>
+
+<%
+  OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
+
+
+%>
 <html>
 <head>
 <title>新增訂單</title>
@@ -55,16 +62,30 @@ button:hover {
 </style>
 </head>
 <body>
+
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+	    <c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+
+
 	<div class="form-container">
+	
     <h2>新增訂單</h2>
-    <form action="someServletURL" method="post">
-        <label for="Sessionid">場次編號(101-104):</label>
-        <input type="text"  value=""  >
+    <form action="order.do" method="post">
+    
+        <label for="sessionid">場次編號(101-104):</label>
+        <input type="text"    >
         
-        <label for="Memberid">會員編號:</label>
-        <input type="text" name="empId">
         
-          <label for="Orderdate">訂單日期:</label>
+        <label for="memberid">會員編號:</label>
+        <input type="text" >
+        
+         <label for="orderdate">訂單日期:</label>
         <input type="date"  id="Orderdate" name="Orderdate">
         
         <script>
@@ -91,7 +112,15 @@ button:hover {
         <label for="Ordernote">備註:</label>
         <input type="TEXT"  name="">
         
-        <button type="submit">Add Employee</button>
+         <input type="hidden" name="action" value="insert">
+        <button type="submit" value="送出"> 新增</button>
+        
+        
+        
+   <jsp:useBean id="ordSvc" scope="page" class="com.order.model.OrderService" />
+        
+        
+      
     </form>
 </div>
 </body>

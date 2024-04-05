@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="ord.do" >
+    <FORM METHOD="post" ACTION="order.do" >
         <b>輸入訂單編號 (如2001):</b>
         <input type="text" name="ordid">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,9 +63,9 @@
   <jsp:useBean id="ordSvc" scope="page" class="com.order.model.OrderService" />
    
   <li>
-     <FORM METHOD="post" ACTION="ord.do" >
+     <FORM METHOD="post" ACTION="order.do" >
        <b>選擇訂單編號:</b>
-       <select size="1" name="orderid">
+       <select size="1" name="ordid">
          <c:forEach var="orderVO" items="${ordSvc.all}" > 
           <option value="${orderVO.orderid}">${orderVO.orderid}
          </c:forEach>   
@@ -77,11 +77,11 @@
   
   
   <li>
-     <FORM METHOD="post" ACTION="ord.do" >
+     <FORM METHOD="post" ACTION="order.do" >
        <b>選擇預定日期˙:</b>
        <select size="1" name="ordid">
            <c:forEach var="orderVO" items="${ordSvc.all}" > 
-          <option value="${orderVO.bookingdate}">${orderVO.bookingdate}
+          <option value="${orderVO.orderid}">${orderVO.bookingdate}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -94,7 +94,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addOrd.jsp'>Add</a> 新增一筆訂單.</li>
+  <li><a href='addOrder.jsp'>Add</a> 新增一筆訂單.</li>
 </ul>
 
 </body>

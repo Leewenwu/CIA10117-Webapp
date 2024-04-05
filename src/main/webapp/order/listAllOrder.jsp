@@ -89,13 +89,13 @@
 			<td>
 			
 			
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ord/ord.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/ord.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="­×§ï">
 			     <input type="hidden" name="empno"  value="${empVO.empno}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/ord.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="§R°£">
 			     <input type="hidden" name="empno"  value="${empVO.empno}">
 			     <input type="hidden" name="action" value="delete"></FORM>

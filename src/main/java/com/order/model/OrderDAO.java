@@ -56,7 +56,7 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderdAO錯誤");
+			System.out.println("OrderdDAO錯誤");
 		}
 
 	}
@@ -71,7 +71,7 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderdAO錯誤");
+			System.out.println("OrderDAO錯誤");
 		}
 
 	}
@@ -86,7 +86,7 @@ public class OrderDAO implements OrderDAO_interface {
 			System.out.println(rowsAffected + " rows affected.");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderdAO錯誤");
+			System.out.println("OrderDAO錯誤");
 		}
 	}
 
@@ -115,7 +115,7 @@ public class OrderDAO implements OrderDAO_interface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderdAO錯誤");
+			System.out.println("DAO錯誤");
 		}
 		return ordVO;
 	}
@@ -197,7 +197,7 @@ public class OrderDAO implements OrderDAO_interface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderdAO錯誤~~~");
+			System.out.println("OrderDAO錯誤~~~");
 		}
 		return list;
 	}
