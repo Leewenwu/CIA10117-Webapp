@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.order.model.*"%>
 <%@ page import="java.util.*"%>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+
 
 <%
   OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
@@ -10,7 +10,7 @@
 
 <html>
 <head>
-<title>員工資料 - listOneEmp.jsp</title>
+<title>訂單資料 </title>
 
 <style>
   table#table-1 {
@@ -48,7 +48,7 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+
 <table id="table-1">
 	<tr><td>
 		 <h3>員工資料 - listOneEmp.jsp</h3>

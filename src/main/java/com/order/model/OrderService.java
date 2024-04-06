@@ -12,12 +12,11 @@ public class OrderService {
 
 	}
 
-	public OrderVO addOrder( Integer sessionid,  Integer menberid, java.sql.Date orderdate,
-			Integer number, Date bookingdate, String ordernote) {
+	public OrderVO addOrder(Integer sessionid, Integer menberid, java.sql.Date orderdate, Integer number,
+			Date bookingdate, String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
 
-	
 		ordvo.setSessionid(sessionid);
 		ordvo.setMemberid(menberid);
 		ordvo.setOrderdate(orderdate);
@@ -30,15 +29,23 @@ public class OrderService {
 		return ordvo;
 
 	}
-
-	public OrderVO updateOrder(String ordernote) {
+	public OrderVO updateOrder(Integer orderid  ,String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
-
+		ordvo.setOrderid(orderid);
 		ordvo.setOrdernote(ordernote);
 		dao.update(ordvo);
 		return ordvo;
 	}
+
+//	public OrderVO updateOrder(Integer orderid  ,String ordernote) {
+//
+//		OrderVO ordvo = new OrderVO();
+//		ordvo.setOrderid(orderid);
+//		ordvo.setOrdernote(ordernote);
+//		dao.update(ordvo);
+//		return ordvo;
+//	}
 
 	public void deleteOrder(Integer ordid) {
 		dao.delete(ordid);

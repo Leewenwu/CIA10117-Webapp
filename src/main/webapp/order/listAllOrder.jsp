@@ -13,7 +13,7 @@
 
 <html>
 <head>
-<title>所有員工資料</title>
+<title>所有訂單資料</title>
 
 <style>
   table#table-1 {	
@@ -89,16 +89,16 @@
 			<td>
 			
 			
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/ord.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/order.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="orderid"  value="${orderVO.orderid}">
+			     <input type="hidden" name="action"	value="getOne_for_update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/ord.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/order.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="orderid"  value="${orderVO.orderid}">
+			     <input type="hidden" name="action" value="deleteOrder"></FORM>
 			</td>
 			
 		</tr>

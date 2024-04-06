@@ -141,7 +141,7 @@ button:hover {
          <input type="hidden" name="action" value="insert">
         <button type="submit" value="送出"> 新增</button>
         
-        
+        <h4><a href="select_page.jsp">回首頁</a></h4>
         
    <jsp:useBean id="ordSvc" scope="page" class="com.order.model.OrderService" />
         

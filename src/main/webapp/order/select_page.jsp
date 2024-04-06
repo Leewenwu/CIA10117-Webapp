@@ -79,7 +79,7 @@
   
   <li>
      <FORM METHOD="post" ACTION="order.do" >
-       <b>選擇預定日期˙:</b>
+       <b>預定日期查詢˙:</b>
        <select size="1" name="ordid">
            <c:forEach var="orderVO" items="${ordSvc.all}" > 
           <option value="${orderVO.orderid}">${orderVO.bookingdate}
