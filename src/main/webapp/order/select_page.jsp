@@ -1,6 +1,6 @@
 	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
 <title>首頁</title>
@@ -68,7 +68,8 @@
        <b>選擇訂單編號:</b>
        <select size="1" name="ordid">
                <c:forEach var="orderVO" items="${ordSvc.all}" > 
-       		   <option value="${orderVO.orderid}">${orderVO.orderid}
+       		   <option value="${orderVO.orderid}">
+       		   	${orderVO.orderid}
         	 </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -81,9 +82,19 @@
      <FORM METHOD="post" ACTION="order.do" >
        <b>預定日期查詢:</b>
        <select size="1" name="ordid">
+       
+       
          <c:forEach var="orderVO" items="${ordSvc.all}" > 
-          <option value="${orderVO.orderid}">${orderVO.bookingdate}
+   <!--   	<option  value="${orderVO.orderid}">
+       			 	  ${orderVO.bookingdate} -->
+			   <option value="${orderVO.orderid}">
+				  <fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" />
+			   </option>
+			   
+			   
          </c:forEach>   	
+         
+         
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
@@ -91,6 +102,7 @@
   </li>
 </ul>
 
+<td><fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" /></td>
 
 <h3>員工管理</h3>
 

@@ -2,6 +2,7 @@ package com.order.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class OrderServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/order/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
+			}
+
+			String ordernote = req.getParameter("ordernote");
+			if (ordernote == null || ordernote.trim().length() == 0) {
+				ordernote = "";
 			}
 
 			Integer orderid = null;
@@ -75,30 +81,27 @@ public class OrderServlet extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/***************************1.接收請求參數****************************************/
+			/*************************** 1.接收請求參數 ****************************************/
 			Integer order = Integer.valueOf(req.getParameter("orderid"));
-			
-			/***************************2.開始查詢資料****************************************/
+
+			/*************************** 2.開始查詢資料 ****************************************/
 			OrderService ordsvc = new OrderService();
 			OrderVO orderVO = ordsvc.getOneOrd(order);
-							
-			/***************************3.查詢完成,準備轉交(Send the Success view)************/
-			String param =  "?orderid="  +orderVO.getOrderid()+
-							"&sessionid=" +orderVO.getSessionid()+
-							"&memberid=" +orderVO.getMemberid()+
-							"&orderdate="+orderVO.getOrderid()+
-							"&number=" +orderVO.getNumber()+
-							"&orderstate=" +orderVO.getOrderdate()+
-							"&bookingdate=" +orderVO.getBookingdate()+
-							"&ordernote=" +orderVO.getOrdernote();
-			
-			String url = "/order/update_order_input.jsp"+param;
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			String param = "?orderid=" + orderVO.getOrderid() +
+//					"&sessionid=" +orderVO.getSessionid()+
+//					"&memberid=" +orderVO.getMemberid()+
+//					"&orderdate="+orderVO.getOrderid()+
+//					"&number=" +orderVO.getNumber()+
+//					"&orderstate=" +orderVO.getOrderdate()+
+//					"&bookingdate=" +orderVO.getBookingdate()+
+					"&ordernote=" + orderVO.getOrdernote();
+
+			String url = "/order/update_order_input.jsp" + param;
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
-	}
-		
-			
-
+		}
 
 		if ("update".equals(action)) { //
 
@@ -107,9 +110,11 @@ public class OrderServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			String ordernote = req.getParameter("ordernote");
-			if (ordernote == null) {
+			if (ordernote == null || ordernote.trim().length() == 0) {
 				ordernote = "";
-			}	
+			}
+
+			// ---------------------------------------------
 
 			String str = req.getParameter("orderid");
 			if (str == null || str.trim().length() == 0) {
@@ -137,18 +142,15 @@ public class OrderServlet extends HttpServlet {
 			// ------------------------------------
 			OrderService ordsvc = new OrderService();
 			OrderVO ordvo = ordsvc.updateOrder(orderid, ordernote);
-			
 
 			// -----------------------------------------
 			req.setAttribute("OrderVO", ordvo);// 資料庫取出OrderVO,存入req
-			String url = "/order/listOneOrder.jsp";
+			String url = "/order/listAllOrder.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 
 		}
 
-		
-		
 		if ("insert".equals(action))
 
 		{
@@ -187,22 +189,6 @@ public class OrderServlet extends HttpServlet {
 				}
 			}
 
-//			java.sql.Date orderdate = null;
-//			try {
-//				orderdate = java.sql.Date.valueOf(req.getParameter("orderdate").trim());
-//			} catch (IllegalArgumentException e) {
-//				orderdate = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("請選擇當天日期!");
-
-//			java.sql.Date bookingdate = null;
-//			try {
-//				bookingdate = java.sql.Date.valueOf(req.getParameter("bookingdate").trim());
-//			} catch (IllegalArgumentException e) {
-//				bookingdate = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("請選擇日期!");
-//			}			
-//			}
-
 			String orderdateStr = req.getParameter("orderdate");
 			java.sql.Date orderdate = null;
 
@@ -214,7 +200,7 @@ public class OrderServlet extends HttpServlet {
 					orderdate = java.sql.Date.valueOf(orderdateStr.trim());
 				} catch (IllegalArgumentException e) {
 
-					errorMsgs.add("日期格式不正確，請使用YYYY-MM-DD格式!");
+					errorMsgs.add("現在日期格式不正確!");
 				}
 			}
 
@@ -233,23 +219,27 @@ public class OrderServlet extends HttpServlet {
 			}
 
 			String bookingdateStr = req.getParameter("bookingdate");
-			java.sql.Date bookingdate = null;
+			java.sql.Timestamp bookingdate = null;
 
 			if (bookingdateStr == null || bookingdateStr.trim().isEmpty()) {
 				errorMsgs.add("請選擇預定日期!");
 			} else {
 				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				
+					java.util.Date parsedDate = sdf.parse(bookingdateStr);
+			
+					bookingdate = new java.sql.Timestamp(parsedDate.getTime());
+				} catch (IllegalArgumentException | ParseException e) {
 
-					bookingdate = java.sql.Date.valueOf(bookingdateStr.trim());
-				} catch (IllegalArgumentException e) {
-
-					errorMsgs.add("日期格式不正確，請使用YYYY-MM-DD格式!");
+					errorMsgs.add("預定日期格式不正確!");
 				}
 
 			}
 
 			String ordernote = req.getParameter("ordernote");
-			if (ordernote == null) {
+
+			if (ordernote == null || ordernote.trim().length() == 0) {
 				ordernote = "";
 			}
 

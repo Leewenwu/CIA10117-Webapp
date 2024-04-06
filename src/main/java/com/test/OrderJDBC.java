@@ -1,45 +1,40 @@
-//package com.order.model;
+//package com.test;
 //
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
+//import java.util.*;
 //
-//import javax.naming.Context;
-//import javax.naming.InitialContext;
-//import javax.naming.NamingException;
-//import javax.sql.DataSource;
+//import com.order.model.OrderDAO_interface;
+//import com.order.model.OrderVO;
 //
-//public class OrderDAO implements OrderDAO_interface {
+//import java.sql.*;
 //
+//public class OrderJDBC implements OrderDAO_interface {
 //	String driver = "com.mysql.cj.jdbc.Driver";
 //	String url = "jdbc:mysql://localhost:3306/mytest?serverTimezone=Asia/Taipei";
 //	String userid = "root";
 //	String passwd = "1234";
 //
-////連線持沒弄
-//
-////	private static final String INSERT_STMT = "INSERT INTO reserve_order"
-////			+ " (reserve_session_id, member_id, reserve_order_date," + " reserve_number, booking_date, order_note) "
-////			+ "VALUES (?, ?, ?, ?, ?, ?)";
-////	private static final String GET_ALL_STMT = "SELECT reserve_order_id, reserve_session_id, member_id,"
-////			+ " reserve_order_date, reserve_number, reserve_order_state, booking_date, order_note "
-////			+ "FROM reserve_order ORDER BY reserve_order_id;";
-////	private static final String GET_ONE_STMT = "SELECT reserve_order_id,reserve_session_id, member_id, reserve_order_date,"
-////			+ " reserve_number,reserve_order_state, booking_date, "
-////			+ "order_note FROM reserve_order where reserve_order_id = ?";
-////	private static final String DELETE = "DELETE FROM reserve_order where reserve_order_id = ?";
-////	private static final String UPDATE = "UPDATE reserve_order set order_note=? where reserve_order_id = ?";
+//	private static final String INSERT_STMT = "INSERT INTO reserve_order"
+//			+ " (reserve_session_id, member_id, reserve_order_date," + " reserve_number, booking_date, order_note) "
+//			+ "VALUES (?, ?, ?, ?, ?, ?)";
+//	private static final String GET_ALL_STMT = "SELECT reserve_order_id, reserve_session_id, member_id,"
+//	        + " reserve_order_date, reserve_number, reserve_order_state, booking_date, order_note "
+//	        + "FROM reserve_order ORDER BY reserve_order_id;";
+//	private static final String GET_ONE_STMT = "SELECT reserve_order_id,reserve_session_id, member_id, reserve_order_date,"
+//			+ " reserve_number,reserve_order_state, booking_date, "
+//			+ "order_note FROM reserve_order where reserve_order_id = ?";
+//	private static final String DELETE = "DELETE FROM reserve_order where reserve_order_id = ?";
+//	private static final String UPDATE = "UPDATE reserve_order set order_note=? where reserve_order_id = ?";
 //
 //	@Override
 //	public void insert(OrderVO ordVO) {
-//		String INSERT_STMT = "INSERT INTO reserve_order (reserve_session_id, member_id, reserve_order_date,"
-//				+ " reserve_number, booking_date, order_note) VALUES (?, ?, ?, ?, ?, ?)";
-//		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
-//				PreparedStatement pstmt = connection.prepareStatement(INSERT_STMT)) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		
+//		try  {	
+//			
+//				con = DriverManager.getConnection(url, userid, passwd);
+//				 pstmt = con.prepareStatement(INSERT_STMT);
+//				 
 //			pstmt.setInt(1, ordVO.getSessionid());
 //			pstmt.setInt(2, ordVO.getMemberid());
 //			pstmt.setDate(3, ordVO.getOrderdate());
@@ -49,46 +44,42 @@
 //			pstmt.executeUpdate();
 //		} catch (SQLException e) {
 //			e.printStackTrace();
-//			System.out.println("OrderdDAO錯誤1");
+//			// 適當的錯誤處理
 //		}
 //
 //	}
 //
 //	@Override
 //	public void update(OrderVO ordVO) {
-//		String UPDATE = "UPDATE reserve_order set order_note=? where reserve_order_id = ?";
 //		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 //				PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
 //			pstmt.setString(1, ordVO.getOrdernote());
 //			pstmt.setInt(2, ordVO.getOrderid()); // 第二個問號對應的是訂單ID
 //			pstmt.executeUpdate();
 //		} catch (SQLException e) {
+//
 //			e.printStackTrace();
-//			System.out.println("OrderDAO錯誤2");
 //		}
 //
 //	}
 //
 //	@Override
 //	public void delete(Integer ordid) {
-//		String DELETE = "DELETE FROM reserve_order WHERE reserve_order_id = ?";
 //		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 //				PreparedStatement pstmt = connection.prepareStatement(DELETE)) {
 //			pstmt.setInt(1, ordid);
-//			int rowsAffected = pstmt.executeUpdate();
-//			System.out.println(rowsAffected + " rows affected.");
+//			pstmt.executeUpdate();
 //		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//			System.out.println("OrderDAO錯誤3");
+//
 //		}
+//
 //	}
 //
 //	@Override
 //	public OrderVO findByPrimaryKey(Integer ordno) {
 //		OrderVO ordVO = null;
-//		String GET_ONE_STMT = "SELECT reserve_order_id,reserve_session_id, member_id, reserve_order_date,"
-//				+ " reserve_number,reserve_order_state, booking_date, "
-//				+ "order_note FROM reserve_order where reserve_order_id = ?";
 //		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 //				PreparedStatement pstmt = connection.prepareStatement(GET_ONE_STMT)) {
 //			pstmt.setInt(1, ordno);
@@ -108,22 +99,19 @@
 //			}
 //		} catch (SQLException e) {
 //			e.printStackTrace();
-//			System.out.println("DAO錯誤4");
+//			// 適當的錯誤處理
 //		}
 //		return ordVO;
 //	}
 //
+//	@Override
+//	
 //	public List<OrderVO> getAll() {
+//		
 //		List<OrderVO> list = new ArrayList<OrderVO>();
-//		String GET_ALL_STMT = "SELECT reserve_order_id, reserve_session_id, member_id,"
-//				+ " reserve_order_date, reserve_number, reserve_order_state, booking_date, order_note "
-//				+ "FROM reserve_order ORDER BY reserve_order_id;";
-//
 //		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 //				PreparedStatement pstmt = connection.prepareStatement(GET_ALL_STMT);
-//				ResultSet rs = pstmt.executeQuery())
-//		
-//		{
+//				ResultSet rs = pstmt.executeQuery()) {
 //
 //			while (rs.next()) {
 //				OrderVO ordVO = new OrderVO();
@@ -138,8 +126,8 @@
 //				list.add(ordVO);
 //			}
 //		} catch (SQLException e) {
-//			throw new RuntimeException("A database error occured. "
-//					+ e.getMessage());
+//			e.printStackTrace();
+//			// 適當的錯誤處理
 //		}
 //		return list;
 //	}

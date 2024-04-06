@@ -1,12 +1,14 @@
 package com.order.model;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -53,7 +55,7 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.setInt(2, ordVO.getMemberid());
 			pstmt.setDate(3, ordVO.getOrderdate());
 			pstmt.setInt(4, ordVO.getNumber());
-			pstmt.setDate(5, ordVO.getBookingdate());
+			pstmt.setTimestamp(5, ordVO.getBookingdate());
 			pstmt.setString(6, ordVO.getOrdernote());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -122,22 +124,21 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setInt(1, ordno);
 			rs = pstmt.executeQuery();
-		
-				while (rs.next()) {
-					ordVO = new OrderVO();
-					ordVO.setOrderid(rs.getInt("reserve_order_id"));
-					ordVO.setSessionid(rs.getInt("reserve_session_id"));
-					ordVO.setMemberid(rs.getInt("member_id"));
-					ordVO.setOrderdate(rs.getDate("reserve_order_date"));
-					ordVO.setNumber(rs.getInt("reserve_number"));
-					ordVO.setOrderstate(rs.getInt("reserve_order_state"));
-					ordVO.setBookingdate(rs.getDate("booking_date"));
-					ordVO.setOrdernote(rs.getString("order_note"));
-				}
-			
-		} catch (SQLException e)  {
-			throw new RuntimeException("A database error occured. "
-					+ e.getMessage());
+
+			while (rs.next()) {
+				ordVO = new OrderVO();
+				ordVO.setOrderid(rs.getInt("reserve_order_id"));
+				ordVO.setSessionid(rs.getInt("reserve_session_id"));
+				ordVO.setMemberid(rs.getInt("member_id"));
+				ordVO.setOrderdate(rs.getDate("reserve_order_date"));
+				ordVO.setNumber(rs.getInt("reserve_number"));
+				ordVO.setOrderstate(rs.getInt("reserve_order_state"));
+				ordVO.setBookingdate(rs.getTimestamp("booking_date"));
+				ordVO.setOrdernote(rs.getString("order_note"));
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -162,15 +163,13 @@ public class OrderDAO implements OrderDAO_interface {
 				}
 			}
 		}
-		return ordVO ;
+		return ordVO;
 	}
-
 
 	public List<OrderVO> getAll() {
 		List<OrderVO> list = new ArrayList<OrderVO>();
 		OrderVO ordVO = null;
-		
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -187,13 +186,12 @@ public class OrderDAO implements OrderDAO_interface {
 				ordVO.setOrderdate(rs.getDate("reserve_order_date"));
 				ordVO.setNumber(rs.getInt("reserve_number"));
 				ordVO.setOrderstate(rs.getInt("reserve_order_state"));
-				ordVO.setBookingdate(rs.getDate("booking_date"));
+				ordVO.setBookingdate(rs.getTimestamp("booking_date"));
 				ordVO.setOrdernote(rs.getString("order_note"));
 				list.add(ordVO);
 			}
-		} catch (SQLException e)  {
-			throw new RuntimeException("A database error occured. "
-					+ e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {

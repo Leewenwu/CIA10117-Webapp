@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
+<%@ page import="java.sql.*"%>
 <%@ page import="com.order.model.*"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
   OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
 
@@ -133,7 +133,10 @@ button:hover {
         <input type="text"  name="number">
         
         <label for="Bookingdate">預定日期:</label>
-        <input type="date" name="bookingdate">
+        <input type="datetime-local" name="bookingdate">
+  
+  
+  
         	
         <label for="Ordernote">備註:</label>
         <input type="TEXT"  name="ordernote">

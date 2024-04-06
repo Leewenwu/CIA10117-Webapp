@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.sql.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ page import="com.order.model.*"%>
 
 
@@ -84,7 +87,8 @@
 			<td>${orderVO.orderdate}</td>
 			<td>${orderVO.number}</td>
 			<td>${orderVO.orderstate}</td>
-			<td>${orderVO.bookingdate}</td>
+			<td><fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" /></td>
+	
 			<td>${orderVO.ordernote}</td> 
 			<td>
 			

@@ -1,6 +1,6 @@
 package com.order.model;
 
-import java.sql.Date;
+import java.sql.*;
 import java.util.List;
 
 public class OrderService {
@@ -12,8 +12,8 @@ public class OrderService {
 
 	}
 
-	public OrderVO addOrder(Integer sessionid, Integer menberid, java.sql.Date orderdate, Integer number,
-			Date bookingdate, String ordernote) {
+	public OrderVO addOrder(Integer sessionid, Integer menberid, Date orderdate, Integer number,
+			Timestamp bookingdate, String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
 

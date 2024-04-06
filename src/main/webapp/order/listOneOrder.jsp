@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.order.model.*"%>
-<%@ page import="java.util.*"%>
-
+<%@ page import="java.sql.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%
   OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
@@ -74,7 +74,9 @@
 		<td><%=ordVO.getOrderdate()%></td>
 		<td><%=ordVO.getNumber()%></td>
 		<td><%=ordVO.getOrderstate()%></td>
-		<td><%=ordVO.getBookingdate()%></td>	
+		
+		<td><fmt:formatDate value="<%=ordVO.getBookingdate()%>" pattern="yyyy-MM-dd HH:mm" /></td>
+		
 		<td><%=ordVO.getOrdernote()%></td>
 	</tr>
 </table>
