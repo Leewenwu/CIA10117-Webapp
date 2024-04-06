@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -67,9 +67,9 @@
      <FORM METHOD="post" ACTION="order.do" >
        <b>選擇訂單編號:</b>
        <select size="1" name="ordid">
-         <c:forEach var="orderVO" items="${ordSvc.all}" > 
-          <option value="${orderVO.orderid}">${orderVO.orderid}
-         </c:forEach>   
+               <c:forEach var="orderVO" items="${ordSvc.all}" > 
+       		   <option value="${orderVO.orderid}">${orderVO.orderid}
+        	 </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
@@ -79,11 +79,11 @@
   
   <li>
      <FORM METHOD="post" ACTION="order.do" >
-       <b>預定日期查詢˙:</b>
+       <b>預定日期查詢:</b>
        <select size="1" name="ordid">
-           <c:forEach var="orderVO" items="${ordSvc.all}" > 
+         <c:forEach var="orderVO" items="${ordSvc.all}" > 
           <option value="${orderVO.orderid}">${orderVO.bookingdate}
-         </c:forEach>   
+         </c:forEach>   	
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">

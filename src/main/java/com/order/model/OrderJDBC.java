@@ -23,9 +23,14 @@ public class OrderJDBC implements OrderDAO_interface {
 
 	@Override
 	public void insert(OrderVO ordVO) {
-
-		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement pstmt = connection.prepareStatement(INSERT_STMT)) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try  {	
+			
+				con = DriverManager.getConnection(url, userid, passwd);
+				 pstmt = con.prepareStatement(INSERT_STMT);
+				 
 			pstmt.setInt(1, ordVO.getSessionid());
 			pstmt.setInt(2, ordVO.getMemberid());
 			pstmt.setDate(3, ordVO.getOrderdate());
@@ -96,7 +101,9 @@ public class OrderJDBC implements OrderDAO_interface {
 	}
 
 	@Override
+	
 	public List<OrderVO> getAll() {
+		
 		List<OrderVO> list = new ArrayList<OrderVO>();
 		try (Connection connection = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement pstmt = connection.prepareStatement(GET_ALL_STMT);
