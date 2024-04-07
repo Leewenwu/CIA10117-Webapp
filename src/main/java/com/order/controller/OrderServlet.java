@@ -11,6 +11,9 @@ import javax.servlet.http.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.order.model.*;
 
 public class OrderServlet extends HttpServlet {
@@ -225,12 +228,17 @@ public class OrderServlet extends HttpServlet {
 				errorMsgs.add("請選擇預定日期!");
 			} else {
 				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				
-					java.util.Date parsedDate = sdf.parse(bookingdateStr);
-			
-					bookingdate = new java.sql.Timestamp(parsedDate.getTime());
-				} catch (IllegalArgumentException | ParseException e) {
+					  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+					// 将输入字符串转换为 LocalDateTime
+					LocalDateTime localDateTime = LocalDateTime.parse(bookingdateStr,
+							formatter);
+					// 将 LocalDateTime 转换为 Timestamp
+					bookingdate = Timestamp.valueOf(localDateTime);
+
+//					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//					java.util.Date parsedDate = sdf.parse(bookingdateStr);
+//					bookingdate = new java.sql.Timestamp(parsedDate.getTime());
+				} catch (IllegalArgumentException e) {
 
 					errorMsgs.add("預定日期格式不正確!");
 				}

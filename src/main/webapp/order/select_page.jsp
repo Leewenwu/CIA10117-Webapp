@@ -1,6 +1,7 @@
-	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+
 <html>
 <head>
 <title>首頁</title>
@@ -47,13 +48,13 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllOrder.jsp'>List</a> 顯示所有訂單. <br><br></li>
-  <!-- 列出所有列表 -->
+  <li><a href='listAllOrder.jsp'>顯示所有訂單</a>  <br><br></li>
+  
   
   
   <li>
     <FORM METHOD="post" ACTION="order.do" >
-        <b>輸入訂單編號 (如2001):</b>
+        <b>輸入訂單編號 (從2001開始):</b>
         <input type="text" name="ordid">
         
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -102,12 +103,14 @@
   </li>
 </ul>
 
-<td><fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" /></td>
+<fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" />
 
-<h3>員工管理</h3>
+<h3>新增</h3>
+
+
 
 <ul>
-  <li><a href='addOrder.jsp'>Add</a> 新增一筆訂單.</li>
+  <li><a href='addOrder.jsp'>新增一筆訂單</a> </li>
 </ul>
 
 </body>
