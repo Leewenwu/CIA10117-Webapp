@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 
 <html>
 <head>
@@ -47,13 +48,13 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllOrder.jsp'>List</a> 顯示所有訂單. <br><br></li>
-  <!-- 列出所有列表 -->
+  <li><a href='listAllOrder.jsp'>顯示所有訂單</a>  <br><br></li>
+  
   
   
   <li>
     <FORM METHOD="post" ACTION="order.do" >
-        <b>輸入訂單編號 (如2001):</b>
+        <b>輸入訂單編號 (從2001開始):</b>
         <input type="text" name="ordid">
         
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -67,9 +68,10 @@
      <FORM METHOD="post" ACTION="order.do" >
        <b>選擇訂單編號:</b>
        <select size="1" name="ordid">
-         <c:forEach var="orderVO" items="${ordSvc.all}" > 
-          <option value="${orderVO.orderid}">${orderVO.orderid}
-         </c:forEach>   
+               <c:forEach var="orderVO" items="${ordSvc.all}" > 
+       		   <option value="${orderVO.orderid}">
+       		   	${orderVO.orderid}
+        	 </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
@@ -79,11 +81,21 @@
   
   <li>
      <FORM METHOD="post" ACTION="order.do" >
-       <b>選擇預定日期˙:</b>
+       <b>預定日期查詢:</b>
        <select size="1" name="ordid">
-           <c:forEach var="orderVO" items="${ordSvc.all}" > 
-          <option value="${orderVO.orderid}">${orderVO.bookingdate}
-         </c:forEach>   
+       
+       
+         <c:forEach var="orderVO" items="${ordSvc.all}" > 
+   <!--   	<option  value="${orderVO.orderid}">
+       			 	  ${orderVO.bookingdate} -->
+			   <option value="${orderVO.orderid}">
+				  <fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" />
+			   </option>
+			   
+			   
+         </c:forEach>   	
+         
+         
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
@@ -91,11 +103,14 @@
   </li>
 </ul>
 
+<fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" />
 
-<h3>員工管理</h3>
+<h3>新增</h3>
+
+
 
 <ul>
-  <li><a href='addOrder.jsp'>Add</a> 新增一筆訂單.</li>
+  <li><a href='addOrder.jsp'>新增一筆訂單</a> </li>
 </ul>
 
 </body>

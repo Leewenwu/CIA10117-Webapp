@@ -1,6 +1,8 @@
 package com.order.model;
+
+import java.sql.*;
 import java.sql.Date;
-import java.util.*;
+
 
 
 public class OrderVO implements java.io.Serializable {
@@ -12,7 +14,7 @@ public class OrderVO implements java.io.Serializable {
 	private Date orderdate;
 	private Integer number;
 	private Integer orderstate;
-	private Date bookingdate;
+	private Timestamp bookingdate;
 	private String ordernote;
 	public Integer getOrderid() {
 		return orderid;
@@ -50,10 +52,10 @@ public class OrderVO implements java.io.Serializable {
 	public void setOrderstate(Integer orderstate) {
 		this.orderstate = orderstate;
 	}
-	public Date getBookingdate() {
+	public Timestamp getBookingdate() {
 		return bookingdate;
 	}
-	public void setBookingdate(Date bookingdate) {
+	public void setBookingdate(	Timestamp bookingdate) {
 		this.bookingdate = bookingdate;
 	}
 	public String getOrdernote() {

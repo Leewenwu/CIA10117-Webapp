@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.order.model.*"%>
-<%@ page import="java.util.*"%>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+<%@ page import="java.sql.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%
   OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO"); 
@@ -10,7 +10,7 @@
 
 <html>
 <head>
-<title>員工資料 - listOneEmp.jsp</title>
+<title>訂單資料 </title>
 
 <style>
   table#table-1 {
@@ -48,10 +48,10 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - listOneEmp.jsp</h3>
+		 <h3>員工資料 </h3>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -74,7 +74,9 @@
 		<td><%=ordVO.getOrderdate()%></td>
 		<td><%=ordVO.getNumber()%></td>
 		<td><%=ordVO.getOrderstate()%></td>
-		<td><%=ordVO.getBookingdate()%></td>	
+		
+		<td><fmt:formatDate value="<%=ordVO.getBookingdate()%>" pattern="yyyy-MM-dd HH:mm" /></td>
+		
 		<td><%=ordVO.getOrdernote()%></td>
 	</tr>
 </table>

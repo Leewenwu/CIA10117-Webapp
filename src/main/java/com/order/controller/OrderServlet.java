@@ -2,6 +2,7 @@ package com.order.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.List;
 
@@ -10,6 +11,9 @@ import javax.servlet.http.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.order.model.*;
 
 public class OrderServlet extends HttpServlet {
@@ -36,6 +40,11 @@ public class OrderServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/order/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
+			}
+
+			String ordernote = req.getParameter("ordernote");
+			if (ordernote == null || ordernote.trim().length() == 0) {
+				ordernote = "";
 			}
 
 			Integer orderid = null;
@@ -69,94 +78,86 @@ public class OrderServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); //
 			successView.forward(req, res);
 		}
-
-		if ("getOne_For_Update".equals(action)) { //
+		if ("getOne_for_update".equals(action)) { //
 
 			List<String> errorMsgs = new LinkedList<String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 **************************/
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer order = Integer.valueOf(req.getParameter("orderid"));
 
-//			String str = req.getParameter("sessionid");
-//			Integer sessionid = null;
-//			if (str == null || str.trim().length() == 0) {
-//				errorMsgs.add("請輸入訂單編號!");
-//			} else {
-//				try {
-//					sessionid = Integer.valueOf(str.trim());
-//
-//				} catch (NumberFormatException e) {
-//
-//					errorMsgs.add("必須是數字");
-//				}
-//			}
-//
-//			String str1 = req.getParameter("memberid");
-//			Integer memberid = null;
-//			if (str1 == null || str1.trim().length() == 0) {
-//				errorMsgs.add("請輸入會員編號!");
-//			} else {
-//				try {
-//					sessionid = Integer.valueOf(str1.trim());
-//
-//				} catch (NumberFormatException e) {
-//
-//					errorMsgs.add("必須是數字");
-//				}
-//			}
-//
-//			java.sql.Date orderdate = null;
-//			try {
-//				orderdate = java.sql.Date.valueOf(req.getParameter("orderdate").trim());
-//			} catch (IllegalArgumentException e) {
-//				orderdate = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("請選擇當天日期!");
-//			}
-//
-//			String numberstr = req.getParameter("number");
-//			Integer number = null;
-//			if (numberstr == null || numberstr.trim().length() == 0) {
-//				errorMsgs.add("請輸入人數!");
-//			} else {
-//				try {
-//					number = Integer.valueOf(str1.trim());
-//
-//				} catch (NumberFormatException e) {
-//
-//					errorMsgs.add("必須是數字");
-//				}
-//			}
-//
-//			java.sql.Date bookingdate = null;
-//			try {
-//				bookingdate = java.sql.Date.valueOf(req.getParameter("bookingdate").trim());
-//			} catch (IllegalArgumentException e) {
-//				bookingdate = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("請選擇日期!");
-//			}
-////
-//			OrderVO ordvo = new OrderVO();
-//
-//			ordvo.setSessionid(sessionid);
-//			ordvo.setMemberid(memberid);
-//			ordvo.setOrderdate(orderdate);
-//			ordvo.setNumber(number);
-//			ordvo.setBookingdate(bookingdate);
+			/*************************** 2.開始查詢資料 ****************************************/
+			OrderService ordsvc = new OrderService();
+			OrderVO orderVO = ordsvc.getOneOrd(order);
 
-//			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("ordvo", ordvo);
-//				RequestDispatcher failureView = req.getRequestDispatcher("/order/addOrder.jsp");
-//				failureView.forward(req, res);
-//				return; // 程式中斷
-//			}	
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			String param = "?orderid=" + orderVO.getOrderid() +
+//					"&sessionid=" +orderVO.getSessionid()+
+//					"&memberid=" +orderVO.getMemberid()+
+//					"&orderdate="+orderVO.getOrderid()+
+//					"&number=" +orderVO.getNumber()+
+//					"&orderstate=" +orderVO.getOrderdate()+
+//					"&bookingdate=" +orderVO.getBookingdate()+
+					"&ordernote=" + orderVO.getOrdernote();
+
+			String url = "/order/update_order_input.jsp" + param;
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			successView.forward(req, res);
+		}
+
+		if ("update".equals(action)) { //
+
+			List<String> errorMsgs = new LinkedList<String>();
+
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			String ordernote = req.getParameter("ordernote");
+			if (ordernote == null || ordernote.trim().length() == 0) {
+				ordernote = "";
+			}
+
+			// ---------------------------------------------
+
+			String str = req.getParameter("orderid");
+			if (str == null || str.trim().length() == 0) {
+				errorMsgs.add("請輸入訂單編號");
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/order/update_order_input.jsp");
+				failureView.forward(req, res);
+				return;//
+			}
+
+			Integer orderid = null;
+			try {
+				orderid = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.add("格式錯誤!");
+
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/order/update_order_input.jsp");
+				failureView.forward(req, res);
+				return;//
+			}
+
+			// ------------------------------------
+			OrderService ordsvc = new OrderService();
+			OrderVO ordvo = ordsvc.updateOrder(orderid, ordernote);
+
+			// -----------------------------------------
+			req.setAttribute("OrderVO", ordvo);// 資料庫取出OrderVO,存入req
+			String url = "/order/listAllOrder.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 
 		}
 
-		// 新增
+		if ("insert".equals(action))
 
-		if ("insert".equals(action)) {
-
+		{
+			// 新增部分
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
@@ -191,22 +192,6 @@ public class OrderServlet extends HttpServlet {
 				}
 			}
 
-//			java.sql.Date orderdate = null;
-//			try {
-//				orderdate = java.sql.Date.valueOf(req.getParameter("orderdate").trim());
-//			} catch (IllegalArgumentException e) {
-//				orderdate = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("請選擇當天日期!");
-
-//			java.sql.Date bookingdate = null;
-//			try {
-//				bookingdate = java.sql.Date.valueOf(req.getParameter("bookingdate").trim());
-//			} catch (IllegalArgumentException e) {
-//				bookingdate = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("請選擇日期!");
-//			}			
-//			}
-
 			String orderdateStr = req.getParameter("orderdate");
 			java.sql.Date orderdate = null;
 
@@ -218,7 +203,7 @@ public class OrderServlet extends HttpServlet {
 					orderdate = java.sql.Date.valueOf(orderdateStr.trim());
 				} catch (IllegalArgumentException e) {
 
-					errorMsgs.add("日期格式不正確，請使用YYYY-MM-DD格式!");
+					errorMsgs.add("現在日期格式不正確!");
 				}
 			}
 
@@ -237,23 +222,32 @@ public class OrderServlet extends HttpServlet {
 			}
 
 			String bookingdateStr = req.getParameter("bookingdate");
-			java.sql.Date bookingdate = null;
+			java.sql.Timestamp bookingdate = null;
 
 			if (bookingdateStr == null || bookingdateStr.trim().isEmpty()) {
 				errorMsgs.add("請選擇預定日期!");
 			} else {
 				try {
+					  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+					// 将输入字符串转换为 LocalDateTime
+					LocalDateTime localDateTime = LocalDateTime.parse(bookingdateStr,
+							formatter);
+					// 将 LocalDateTime 转换为 Timestamp
+					bookingdate = Timestamp.valueOf(localDateTime);
 
-					bookingdate = java.sql.Date.valueOf(bookingdateStr.trim());
+//					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//					java.util.Date parsedDate = sdf.parse(bookingdateStr);
+//					bookingdate = new java.sql.Timestamp(parsedDate.getTime());
 				} catch (IllegalArgumentException e) {
 
-					errorMsgs.add("日期格式不正確，請使用YYYY-MM-DD格式!");
+					errorMsgs.add("預定日期格式不正確!");
 				}
 
 			}
 
 			String ordernote = req.getParameter("ordernote");
-			if (ordernote == null) {
+
+			if (ordernote == null || ordernote.trim().length() == 0) {
 				ordernote = "";
 			}
 
@@ -271,16 +265,19 @@ public class OrderServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("updateOrder".equals(action))
-
-		{
-			//
-
-		}
-
 		if ("deleteOrder".equals(action)) {
-			//
+			// 刪除部分
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 
+			Integer ordid = Integer.valueOf(req.getParameter("orderid"));
+
+			OrderService ordsvc = new OrderService();
+			ordsvc.deleteOrder(ordid);
+
+			String url = "/order/listAllOrder.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 		}
 	}
 

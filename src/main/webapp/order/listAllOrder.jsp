@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.sql.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ page import="com.order.model.*"%>
 
 
@@ -13,7 +16,7 @@
 
 <html>
 <head>
-<title>所有員工資料</title>
+<title>所有訂單資料</title>
 
 <style>
   table#table-1 {	
@@ -56,7 +59,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>所有資料 listAllorder.jsp</h3>
+		 <h3>所有資料 </h3>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -84,21 +87,22 @@
 			<td>${orderVO.orderdate}</td>
 			<td>${orderVO.number}</td>
 			<td>${orderVO.orderstate}</td>
-			<td>${orderVO.bookingdate}</td>
+			<td><fmt:formatDate value="${orderVO.bookingdate}" pattern="yyyy-MM-dd HH:mm" /></td>
+	
 			<td>${orderVO.ordernote}</td> 
 			<td>
 			
 			
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/ord.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/order.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="orderid"  value="${orderVO.orderid}">
+			     <input type="hidden" name="action"	value="getOne_for_update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/ord.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/order.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="orderid"  value="${orderVO.orderid}">
+			     <input type="hidden" name="action" value="deleteOrder"></FORM>
 			</td>
 			
 		</tr>
