@@ -8,37 +8,37 @@ import java.sql.Date;
 public class OrderVO implements java.io.Serializable {
 
 	// TODO Auto-generated method stub
-	private Integer orderid;
-	private Integer sessionid;
-	private Integer memberid;
-	private Date orderdate;
+	private Integer orderId;//order
+	private Integer sessionId;
+	private Integer memberId;
+	private Date orderDate;
 	private Integer number;
-	private Integer orderstate;
-	private Timestamp bookingdate;
-	private String ordernote;
+	private Integer orderState;
+	private Timestamp bookingDate;
+	private String orderNote;
 	public Integer getOrderid() {
-		return orderid;
+		return orderId;
 	}
 	public void setOrderid(Integer orderid) {
-		this.orderid = orderid;
+		this.orderId = orderid;
 	}
 	public Integer getSessionid() {
-		return sessionid;
+		return sessionId;
 	}
 	public void setSessionid(Integer sessionid) {
-		this.sessionid = sessionid;
+		this.sessionId = sessionid;
 	}
 	public Integer getMemberid() {
-		return memberid;
+		return memberId;
 	}
 	public void setMemberid(Integer memberid) {
-		this.memberid = memberid;
+		this.memberId = memberid;
 	}
 	public Date getOrderdate() {
-		return orderdate;
+		return orderDate;
 	}
 	public void setOrderdate(Date orderdate) {
-		this.orderdate = orderdate;
+		this.orderDate = orderdate;
 	}
 	public Integer getNumber() {
 		return number;
@@ -47,22 +47,22 @@ public class OrderVO implements java.io.Serializable {
 		this.number = number;
 	}
 	public Integer getOrderstate() {
-		return orderstate;
+		return orderState;
 	}
 	public void setOrderstate(Integer orderstate) {
-		this.orderstate = orderstate;
+		this.orderState = orderstate;
 	}
 	public Timestamp getBookingdate() {
-		return bookingdate;
+		return bookingDate;
 	}
 	public void setBookingdate(	Timestamp bookingdate) {
-		this.bookingdate = bookingdate;
+		this.bookingDate = bookingdate;
 	}
 	public String getOrdernote() {
-		return ordernote;
+		return orderNote;
 	}
 	public void setOrdernote(String ordernote) {
-		this.ordernote = ordernote;
+		this.orderNote = ordernote;
 	}
 
 	
