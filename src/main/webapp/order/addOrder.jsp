@@ -98,9 +98,9 @@ button:hover {
 				<option value="1005">1005</option>
 				<option value="1006">1006</option>
 				<option value="1007">1007</option>
-				</select>
-				
-<!--Bean選單  
+			</select>
+
+			<!--Bean選單  
 				<jsp:useBean id="ordSvc" scope="page"
 				class="com.order.model.OrderService" />	
 			</select> <label for="memberid">會員編號1001-1007:</label> <select name="memberid"
@@ -121,7 +121,7 @@ button:hover {
 
 
 
-		
+
 
 			<label for="orderdate">訂單日期:</label> <input type="date"
 				name="orderdate" id="orderdate">
@@ -186,7 +186,7 @@ button:hover {
 
 
 			<label for="Ordernote">備註:</label> <input type="TEXT"
-				name="ordernote"> <input type="hidden" name="action"
+				name="ordernote"> <input type="TEXT" name="action"
 				value="insert">
 			<button type="submit" value="送出">新增</button>
 
