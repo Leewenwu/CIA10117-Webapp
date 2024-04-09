@@ -91,8 +91,23 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.setInt(2, ordVO.getOrderid()); // 第二個問號對應的是訂單ID
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO錯誤2");
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 
 	}
@@ -108,9 +123,25 @@ public class OrderDAO implements OrderDAO_interface {
 			int rowsAffected = pstmt.executeUpdate();
 			System.out.println(rowsAffected + " rows affected.");
 		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO錯誤3");
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
+
 	}
 
 	@Override

@@ -31,7 +31,7 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>查詢</h3></td></tr>
+   <tr><td><h3>餐廳訂單查詢</h3></td></tr>
 </table>
 
 
@@ -68,9 +68,9 @@
      <FORM METHOD="post" ACTION="order.do" >
        <b>選擇訂單編號:</b>
        <select size="1" name="ordid">
-               <c:forEach var="orderVO" items="${ordSvc.all}" > 
-       		   <option value="${orderVO.orderid}">
-       		   	${orderVO.orderid}
+               <c:forEach var="OrderVO" items="${ordSvc.all}" > 
+       		   <option value="${OrderVO.orderid}">
+       		   	${OrderVO.orderid}
         	 </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">

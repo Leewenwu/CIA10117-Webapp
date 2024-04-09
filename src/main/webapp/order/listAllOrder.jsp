@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+\<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
@@ -68,7 +68,7 @@
 	<tr>
 		<th>訂單編號</th>
 		<th>場次編號</th>
-		<th>會員便號</th>
+		<th>會員編號</th>
 		<th>日期</th>
 		<th>人數</th>
 		<th>訂單狀態</th>

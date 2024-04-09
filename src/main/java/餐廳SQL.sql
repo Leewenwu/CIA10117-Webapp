@@ -65,8 +65,7 @@ INSERT INTO reserve_session(
  session_time)
 values(NULL),(NULL),(NULL);
 -- INSERT INTO reserve_session ( session_time)
--- VALUES ("中午"),("晚上"),("中午"),("晚上"),("中午"),("晚上");
-
+-- VALUES ("中午"),("晚上");
 
 
 -- 創建餐廳訂單表格 RESERVE_ORDER

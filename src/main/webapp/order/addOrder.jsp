@@ -87,9 +87,10 @@ button:hover {
 
 		<form action="order.do" method="post">
 
-			<label for="sessionid">場次編號:</label> <input type="text"
-				name="sessionid"> <label for="memberid">會員編號1001-1007:</label>
-			<select name="memberid" id="memberid">
+			<label for="sessionid">場次編號:依預定時間自動選擇</label> <input type="text"
+				id="sessionid" name="sessionid" readonly> <label
+				for="memberid">會員編號1001-1007:</label> <select name="memberid"
+				id="memberid">
 				<option value="1001">1001</option>
 				<option value="1002">1002</option>
 				<option value="1003">1003</option>
@@ -99,8 +100,16 @@ button:hover {
 				<option value="1007">1007</option>
 			</select>
 
-
-
+			<!--Bean選單  
+				<jsp:useBean id="ordSvc" scope="page"
+				class="com.order.model.OrderService" />	
+			</select> <label for="memberid">會員編號1001-1007:</label> <select name="memberid"
+				id="memberid">
+				<c:forEach var="orderVO" items="${ordSvc.all}">
+					<option value="${orderVO.memberid}">${orderVO.memberid}
+				</c:forEach>
+			</select>
+ -->
 
 			<!--  <label for="memberid">會員編號:</label>
     <jsp:useBean id="ordSvc1" scope="page" class="com.order.model.OrderService" />        
@@ -140,28 +149,44 @@ button:hover {
 
 			<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 			<script>
-				flatpickr("#bookingdate", {
-					enableTime : true,
-					noCalendar : false,
-					dateFormat : "Y-m-d H:i",
-					time_24hr : true,
-					minuteIncrement : 30,
-					minDate : new Date().fp_incr(3),
-					maxDate : new Date().fp_incr(60),
-					onChange : function(selectedDates, dateStr, instance) {
-						const minutes = selectedDates[0].getMinutes();
-						if (minutes !== 0 && minutes !== 30) {
-							const adjustedDate = new Date(selectedDates[0]
-									.setMinutes(minutes < 30 ? 0 : 30));
-							instance.setDate(adjustedDate, false);
-						}
-					}
-				});
+				flatpickr(
+						"#bookingdate",
+						{
+							enableTime : true,
+							noCalendar : false,
+							dateFormat : "Y-m-d H:i",
+							time_24hr : true,
+							minuteIncrement : 30,
+							inline : true,
+							defaultDate : "10:00",
+							minTime : "10:00",
+							maxTime : "19:00",
+							minDate : new Date().fp_incr(3),
+							maxDate : new Date().fp_incr(60),
+							onChange : function(selectedDates, dateStr,
+									instance) {
+								const minutes = selectedDates[0].getMinutes();
+								if (minutes !== 0 && minutes !== 30) {
+									const adjustedDate = new Date(
+											selectedDates[0]
+													.setMinutes(minutes < 30 ? 0
+															: 30));
+									instance.setDate(adjustedDate, false);
+								}
+
+								const hour = selectedDates[0].getHours();
+								const sessionidValue = hour < 14 ? "101"
+										: "102";
+								document.getElementById("sessionid").value = sessionidValue;
+
+								req.setAttribute("sessionid", sessionid);
+							}
+						});
 			</script>
 
 
 			<label for="Ordernote">備註:</label> <input type="TEXT"
-				name="ordernote"> <input type="hidden" name="action"
+				name="ordernote"> <input type="TEXT" name="action"
 				value="insert">
 			<button type="submit" value="送出">新增</button>
 
@@ -169,8 +194,7 @@ button:hover {
 				<a href="select_page.jsp">回首頁</a>
 			</h4>
 
-			<jsp:useBean id="ordSvc" scope="page"
-				class="com.order.model.OrderService" />
+
 
 
 
