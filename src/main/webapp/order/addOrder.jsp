@@ -186,7 +186,7 @@ button:hover {
 
 
 			<label for="Ordernote">備註:</label> <input type="TEXT"
-				name="ordernote"> <input type="TEXT" name="action"
+				name="ordernote"> <input type="hidden" name="action"
 				value="insert">
 			<button type="submit" value="送出">新增</button>
 
