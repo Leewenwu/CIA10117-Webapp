@@ -16,6 +16,9 @@
 
 		<property name="hibernate.format_sql">true</property>
 
-		<mapping class="com.session.model.Sion" />
+
+		<mapping class="com.member.Member" />
+
+<!-- 		<mapping class="com.session.model.Sion" /> -->
 	</session-factory>
 </hibernate-configuration>
