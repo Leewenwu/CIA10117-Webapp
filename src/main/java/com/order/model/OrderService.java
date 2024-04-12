@@ -12,8 +12,8 @@ public class OrderService {
 
 	}
 
-	public OrderVO addOrder(Integer sessionid, Integer menberid, Date orderdate, Integer number,
-			Timestamp bookingdate, String ordernote) {
+	public OrderVO addOrder(Integer sessionid, Integer menberid, Date orderdate, Integer number, Timestamp bookingdate,
+			String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
 
@@ -29,7 +29,8 @@ public class OrderService {
 		return ordvo;
 
 	}
-	public OrderVO updateOrder(Integer orderid  ,String ordernote) {
+
+	public OrderVO updateOrder(Integer orderid, String ordernote) {
 
 		OrderVO ordvo = new OrderVO();
 		ordvo.setOrderid(orderid);
@@ -37,15 +38,6 @@ public class OrderService {
 		dao.update(ordvo);
 		return ordvo;
 	}
-
-//	public OrderVO updateOrder(Integer orderid  ,String ordernote) {
-//
-//		OrderVO ordvo = new OrderVO();
-//		ordvo.setOrderid(orderid);
-//		ordvo.setOrdernote(ordernote);
-//		dao.update(ordvo);
-//		return ordvo;
-//	}
 
 	public void deleteOrder(Integer ordid) {
 		dao.delete(ordid);

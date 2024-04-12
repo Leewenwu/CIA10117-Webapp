@@ -9,7 +9,7 @@ public class MemberTest {
 
 		// ---------------------------
 		Member mem1 = dao.findByPK(3);
-		mem1.setPhone("0930222W221");
+		mem1.setPhone("0930222221");
 		dao.update(mem1);
 		System.out.println(mem1.getmName() + ",");
 		System.out.println(mem1.getPhone()); 

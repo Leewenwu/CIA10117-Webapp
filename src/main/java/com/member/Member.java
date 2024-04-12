@@ -45,6 +45,7 @@ public class Member {
 	@Column(name = "member_img", columnDefinition = "blob")
 	private byte[] image;
 
+	
 	public Integer getMemId() {
 		return memId;
 	}
@@ -116,12 +117,13 @@ public class Member {
 	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
+	
 
-	public Date getBirtday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirtday(Date birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
