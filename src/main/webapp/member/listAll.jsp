@@ -105,7 +105,7 @@ th, td, tr {
 		        </c:otherwise>
 					</c:choose></td>
 				<td>${member.birthday}</td>
-				<td>${member.image}</td>
+<%-- 				<td>${member.image}</td> --%>
 				<td><a
 					href="${pageContext.request.contextPath}/member/member.do?action=getOne&memId=${member.memId}">н╫зя</a>
 				</td>

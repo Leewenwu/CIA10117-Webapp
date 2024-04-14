@@ -1,6 +1,10 @@
 package com.member;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,9 +22,11 @@ public class MemberServlet extends HttpServlet {
 	public void init() throws ServletException {
 		memberService = new MemberService();
 	}
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
+
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -31,6 +37,9 @@ public class MemberServlet extends HttpServlet {
 			break;
 		case "getOne":
 			forwardpath = getOne(req, res);
+			break;
+		case "getUpdate":
+			forwardpath = getUpdate(req, res);
 			break;
 		default:
 			forwardpath = "index.jsp";
@@ -63,6 +72,43 @@ public class MemberServlet extends HttpServlet {
 		return "/member/update.jsp";
 
 	}
+
+	private String getUpdate(HttpServletRequest req, HttpServletResponse res) {
+
+		Integer memId = Integer.parseInt(req.getParameter("memId"));
+		String mName = req.getParameter("mName");
+		String mAccount = req.getParameter("mAccount");
+		String mPassword = req.getParameter("mPassword");
+		String email = req.getParameter("email");
+		String phone = req.getParameter("phone");
+		String address = req.getParameter("address");
+		Integer mState = Integer.parseInt(req.getParameter("mState"));
+		boolean gender = Boolean.parseBoolean(req.getParameter("gender"));
+		Date birthday = java.sql.Date.valueOf(req.getParameter("birthday"));
+
 	
-	
+
+//		byte[] image = req.getParameter("image").getBytes(); // 處理方法可能需要根據實際情況調整
+//		, image
+		
+		
+		Member getupdate = memberService.updateMember(memId, mName, mAccount, mPassword, email, phone, address, mState,
+				gender, birthday);
+		
+		req.setAttribute("member", getupdate);
+		return "/member/listAll.jsp";
+
+	}
+
+	public byte[] getDefaultImageData() {
+		File imageFile = new File("path/to/default/image.jpg"); // 替換為實際的文件路徑
+		byte[] imageData = null;
+		try {
+			imageData = Files.readAllBytes(imageFile.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+			// 處理異常，可能是文件不存在或讀取錯誤
+		}
+		return imageData;
+	}
 }
