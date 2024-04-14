@@ -13,12 +13,6 @@
 	<a href="${pageContext.request.contextPath}/member/member.do?action=getAll">查詢所有員工</a>
 	
 
-	<form action="${A}/" method="post">
-		<p>
-			<label>：</label>
-		</p>
-		<input type="text" name="ename"><br>
-
-	</form>
+	
 </body>
 </html>

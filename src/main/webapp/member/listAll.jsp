@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.member.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 
@@ -11,11 +12,13 @@
 
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
+	background-color: #ADD8E6; /* 淡藍色背景 */
 	border: 2px solid black;
 	text-align: center;
+	width: 90%; /* 表格寬度滿版 */
 }
 
+}
 table#table-1 h4 {
 	color: red;
 	display: block;
@@ -30,10 +33,11 @@ h4 {
 
 <style>
 table {
-	width: 1000px;
-	background-color: white;
+	width: 90%;
+	background-color: #87CEFA;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	border-collapse: collapse;
 }
 
 table, th, td {
@@ -41,13 +45,14 @@ table, th, td {
 }
 
 th, td, tr {
-	padding: 10px;
+	padding: 15px;
 	text-align: center;
 }
 </style>
 
 </head>
-<body bgcolor='white'>
+
+<body bgcolor='#ADD8E6'>
 
 
 	<table id="table-1">
@@ -63,16 +68,21 @@ th, td, tr {
 
 	<table>
 		<tr>
-			<th>1</th>
-			<th>2</th>
-			<th>3</th>
-			<th>4</th>
-			<th>5</th>
-			<th>6</th>
-			<th>7</th>
-			<th>8</th>
-			<th>9</th>
-			<th>10</th>
+			<th>會員編號</th>
+			<th>會員姓名</th>
+			<th>帳號</th>
+			<th>密碼</th>
+			<th>信箱</th>
+			<th>電話</th>
+			<th>地址</th>
+			<th>帳號狀態</th>
+			<th>性別</th>
+
+			<th>生日</th>
+			<th>使用者照片</th>
+			<th></th>
+
+
 		</tr>
 
 		<c:forEach var="member" items="${memberList}">
@@ -81,18 +91,28 @@ th, td, tr {
 				<td>${member.memId}</td>
 				<td>${member.mName}</td>
 				<td>${member.mAccount}</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>${member.mPassword}</td>
+				<td>${member.email}</td>
+				<td>${member.phone}</td>
+				<td>${member.address}</td>
+				<td>${member.mState}</td>
+				<td><c:choose>
+						<c:when test="${member.gender}">
+		            男
+		        </c:when>
+						<c:otherwise>
+		            女
+		        </c:otherwise>
+					</c:choose></td>
+				<td>${member.birthday}</td>
+				<td>${member.image}</td>
+				<td><a
+					href="${pageContext.request.contextPath}/member/member.do?action=getOne&memId=${member.memId}">修改</a>
+				</td>
+
+
 			</tr>
 		</c:forEach>
-		
 	</table>
-
-
 </body>
 </html>

@@ -11,8 +11,14 @@ public class MemberService {
 		dao = new MemberDAOimpl();
 	}
 
+	public Member getOneMember(Integer memId) {
+		return dao.findByPK(memId);
+		
+	}
+	
+	
 	public Member updateMember(Integer memId, String mName, String mAccount, String mPassword, String email,
-			String phone, String address, Integer mState, boolean gender, Date birthday, byte[] image) {
+			String phone, String address, 	Integer mState, boolean gender, Date birthday, byte[] image) {
 
 		Member member = new Member();
 		member.setMemId(memId);

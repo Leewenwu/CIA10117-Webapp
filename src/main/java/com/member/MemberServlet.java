@@ -18,7 +18,9 @@ public class MemberServlet extends HttpServlet {
 	public void init() throws ServletException {
 		memberService = new MemberService();
 	}
-
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -26,6 +28,9 @@ public class MemberServlet extends HttpServlet {
 		switch (action) {
 		case "getAll":
 			forwardpath = getAll(req, res);
+			break;
+		case "getOne":
+			forwardpath = getOne(req, res);
 			break;
 		default:
 			forwardpath = "index.jsp";
@@ -45,7 +50,19 @@ public class MemberServlet extends HttpServlet {
 
 	}
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
+	private String getOne(HttpServletRequest req, HttpServletResponse res) {
+		String memIdStr = req.getParameter("memId");
+
+		if (memIdStr != null) {
+			Integer memId = Integer.parseInt(memIdStr);
+			Member getMember = memberService.getOneMember(memId);
+			req.setAttribute("member", getMember);
+		} else {
+			return "/index.jsp";
+		}
+		return "/member/update.jsp";
+
 	}
+	
+	
 }
