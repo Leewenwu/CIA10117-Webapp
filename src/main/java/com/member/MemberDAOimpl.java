@@ -21,8 +21,19 @@ public class MemberDAOimpl implements MemberDAO {
 	}
 
 	@Override
+	public List<Member> getAll() {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createQuery("from Member", Member.class).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
 	public int update(Member member) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
 		try {
 			session.beginTransaction();
 			session.update(member);
@@ -39,7 +50,8 @@ public class MemberDAOimpl implements MemberDAO {
 
 	@Override
 	public Member findByPK(Integer memId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
 		try {
 			session.beginTransaction();
 			Member mem = session.get(Member.class, memId);
@@ -54,24 +66,20 @@ public class MemberDAOimpl implements MemberDAO {
 
 	}
 
-	@Override
-	public List<Member> getAll() {
-		return getSession().createQuery("form Member", Member.class).list();
-	}
-
 //	@Override
 //	public List<Member> getAll() {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 //		try {
 //			session.beginTransaction();
-//			List<Member> list = session.createQuery("from Member", Member.class).list();
-//			session.getTransaction();
-//			return list;
+//			List<Member> members = session.createQuery("from Member", Member.class).list();
+//			session.getTransaction().commit();
+//			return members;
 //		} catch (Exception e) {
 //			e.printStackTrace();
-//			session.getTransaction().rollback();
+//			if (session.getTransaction() != null) {
+//				session.getTransaction().rollback();
+//			}
 //		}
 //		return null;
 //	}
-
 }

@@ -7,10 +7,10 @@ public class TestDAO {
 	public static void main(String[] args) {
 	 
 		SionDAO dao = new SionDAOHibernateimpl();
-//
-//		Sion sion1 = new Sion();
-//		sion1.setTime("練習2");
-//		dao.insert(sion1);
+
+		Sion sion1 = new Sion();
+		sion1.setTime("練習2");
+		dao.insert(sion1);
 
 //		dao.delete(112);
 //		dao.delete(114);
@@ -18,12 +18,12 @@ public class TestDAO {
 //		dao.delete(116);
 		
 
-		List<Sion> list = dao.getAll();
-		for (Sion sion : list) {
-			System.out.println(sion.getSionId());
-			System.out.println(sion.getMax());
-			System.out.println(sion.getTime());
-		}
+//		List<Sion> list = dao.getAll();
+//		for (Sion sion : list) {
+//			System.out.println(sion.getSionId());
+//			System.out.println(sion.getMax());
+//			System.out.println(sion.getTime());
+//		}
 	}
 
 }

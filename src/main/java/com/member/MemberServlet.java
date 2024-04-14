@@ -19,10 +19,6 @@ public class MemberServlet extends HttpServlet {
 		memberService = new MemberService();
 	}
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
-	}
-
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -32,7 +28,7 @@ public class MemberServlet extends HttpServlet {
 			forwardpath = getAll(req, res);
 			break;
 		default:
-			forwardpath = "listAll.jsp";
+			forwardpath = "index.jsp";
 
 		}
 		res.setContentType("text/html; charset=UTF-8");
@@ -47,5 +43,9 @@ public class MemberServlet extends HttpServlet {
 
 		return "/member/listAll.jsp";
 
+	}
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
 	}
 }
