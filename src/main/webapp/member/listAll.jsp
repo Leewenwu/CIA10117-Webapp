@@ -96,7 +96,7 @@
 
   <div class="sidebar">
         <h2>標題</h2>
-        <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">員工管理</a>
+        <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a>
         <a href="#">2</a>
         <a href="#">3</a>
         <a href="index.jsp">回首頁</a>
@@ -104,7 +104,7 @@
     </div>
 
  <div class="main-content">
- <h1>員工管理系統</h1>
+ <h1>會員管理系統</h1>
 	<table>
 	
 		<tr>
