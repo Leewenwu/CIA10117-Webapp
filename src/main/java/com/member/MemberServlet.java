@@ -86,20 +86,38 @@ public class MemberServlet extends HttpServlet {
 		boolean gender = Boolean.parseBoolean(req.getParameter("gender"));
 		Date birthday = java.sql.Date.valueOf(req.getParameter("birthday"));
 
-	
-
 //		byte[] image = req.getParameter("image").getBytes(); // 處理方法可能需要根據實際情況調整
 //		, image
-		
-		
+
 		Member getupdate = memberService.updateMember(memId, mName, mAccount, mPassword, email, phone, address, mState,
 				gender, birthday);
-		
+
+		List<Member> allMembers = memberService.getAll();
+		req.setAttribute("memberList", allMembers);
+
 		req.setAttribute("member", getupdate);
 		return "/member/listAll.jsp";
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 圖片 先預留
 	public byte[] getDefaultImageData() {
 		File imageFile = new File("path/to/default/image.jpg"); // 替換為實際的文件路徑
 		byte[] imageData = null;

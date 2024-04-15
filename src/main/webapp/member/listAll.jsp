@@ -9,64 +9,104 @@
 <html>
 <head>
 <title>所有訂單資料</title>
-
 <style>
-table#table-1 {
-	background-color: #ADD8E6; /* 淡藍色背景 */
-	border: 2px solid black;
-	text-align: center;
-	width: 90%; /* 表格寬度滿版 */
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-}
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+    }
 
-h4 {
-	color: blue;
-	display: inline;
-}
+    .sidebar {
+        width: 200px;
+        background: #333;
+        color: #fff;
+        height: 100vh;
+        position: fixed;
+    }
+
+    .sidebar h2 {
+        padding: 20px;
+        background-color: #444;
+    }
+
+    .sidebar a {
+        padding: 10px 20px;
+        display: block;
+        color: #ddd;
+        text-decoration: none;
+    }
+
+    .sidebar a:hover {
+        background: #555;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        padding: 20px;
+        background: #eaeaea;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .button-group {
+        text-align: right;
+    }
+
+    .button-group button {
+        padding: 8px 16px;
+        margin: 5px;
+        border: none;
+        background-color: #5cb85c;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .button-group button:hover {
+        background-color: #4cae4c;
+    }
 </style>
-
-<style>
-table {
-	width: 90%;
-	background-color: #87CEFA;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	border-collapse: collapse;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td, tr {
-	padding: 15px;
-	text-align: center;
-}
-</style>
-
 </head>
 
 <body bgcolor='#ADD8E6'>
 
+  <div class="sidebar">
+        <h2>標題</h2>
+        <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">員工管理</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="index.jsp">回首頁</a>
+   
+    </div>
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>所有資料</h3>
-				<h4>
-					<a href="index.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
+ <div class="main-content">
+ <h1>員工管理系統</h1>
 	<table>
+	
 		<tr>
 			<th>會員編號</th>
 			<th>會員姓名</th>
@@ -79,8 +119,8 @@ th, td, tr {
 			<th>性別</th>
 
 			<th>生日</th>
-			<th>使用者照片</th>
 			<th></th>
+<!-- 			<th></th> -->
 
 
 		</tr>
@@ -105,14 +145,20 @@ th, td, tr {
 		        </c:otherwise>
 					</c:choose></td>
 				<td>${member.birthday}</td>
-<%-- 				<td>${member.image}</td> --%>
-				<td><a
-					href="${pageContext.request.contextPath}/member/member.do?action=getOne&memId=${member.memId}">修改</a>
+<%--圖片再開	 			<td>${member.image}</td> --%>
+				<td>
+<form method="post" action="${pageContext.request.contextPath}/member/member.do">
+    <input type="hidden" name="action" value="getOne">
+    <input type="hidden" name="memId" value="${member.memId}">
+    <input type="submit" value="修改">
+</form>			
+			
 				</td>
 
 
 			</tr>
 		</c:forEach>
 	</table>
+	   </div>
 </body>
 </html>
