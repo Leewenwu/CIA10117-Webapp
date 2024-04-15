@@ -85,7 +85,7 @@
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="orderid" value="${param.orderid}">
+<input type="text" name="orderid" value="${param.orderid}">
 <input type="submit" value="°e¥X­×§ï"></FORM>
 </body>
 

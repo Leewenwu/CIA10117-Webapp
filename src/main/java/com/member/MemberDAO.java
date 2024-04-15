@@ -6,8 +6,8 @@ public interface MemberDAO {
 
 	int update(Member member);
 
-	Member findByPK(Integer memId);
-
 	List<Member> getAll();
+
+	Member findByPK(Integer memId);
 
 }

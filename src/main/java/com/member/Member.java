@@ -42,9 +42,10 @@ public class Member {
 	private Date birthday;
 
 	@Lob
-	@Column(name = "member_img", columnDefinition = "blob")
+	@Column(name = "member_img", columnDefinition = "longblob")
 	private byte[] image;
 
+	
 	public Integer getMemId() {
 		return memId;
 	}
@@ -116,12 +117,13 @@ public class Member {
 	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
+	
 
-	public Date getBirtday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirtday(Date birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
@@ -143,5 +145,10 @@ public class Member {
 		return "Member [memId=" + memId + ", mName=" + mName + ", mAccount=" + mAccount + ", mPassword=" + mPassword
 				+ ", email=" + email + ", phone=" + phone + ", mState=" + mState + ", address=" + address + ", gender="
 				+ gender + ", birtday=" + birthday + ", image=" + Arrays.toString(image) + "]";
+	}
+
+	public boolean getGender() {
+		// TODO Auto-generated method stub
+		return gender;
 	}
 }

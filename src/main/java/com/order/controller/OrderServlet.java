@@ -26,11 +26,6 @@ public class OrderServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		
-		
-		
-		
-		
 		if ("getOne_For_Display".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -233,10 +228,9 @@ public class OrderServlet extends HttpServlet {
 				errorMsgs.add("請選擇預定日期!");
 			} else {
 				try {
-					  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 					// 将输入字符串转换为 LocalDateTime
-					LocalDateTime localDateTime = LocalDateTime.parse(bookingdateStr,
-							formatter);
+					LocalDateTime localDateTime = LocalDateTime.parse(bookingdateStr, formatter);
 					// 将 LocalDateTime 转换为 Timestamp
 					bookingdate = Timestamp.valueOf(localDateTime);
 

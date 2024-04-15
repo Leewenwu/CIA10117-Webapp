@@ -47,8 +47,6 @@
   }
   th, td ,tr{
     padding: 10px;
-    
-    
     text-align: center;
   }
 </style>
@@ -91,8 +89,6 @@
 	
 			<td>${orderVO.ordernote}</td> 
 			<td>
-			
-			
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order/order.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="н╫зя">
 			     <input type="hidden" name="orderid"  value="${orderVO.orderid}">
