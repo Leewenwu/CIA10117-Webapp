@@ -146,4 +146,9 @@ public class Member {
 				+ ", email=" + email + ", phone=" + phone + ", mState=" + mState + ", address=" + address + ", gender="
 				+ gender + ", birtday=" + birthday + ", image=" + Arrays.toString(image) + "]";
 	}
+
+	public boolean getGender() {
+		// TODO Auto-generated method stub
+		return gender;
+	}
 }

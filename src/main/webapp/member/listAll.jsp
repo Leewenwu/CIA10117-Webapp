@@ -136,26 +136,28 @@
 				<td>${member.phone}</td>
 				<td>${member.address}</td>
 				<td>${member.mState}</td>
+		
 				<td><c:choose>
 						<c:when test="${member.gender}">
-		            男
+		            女
 		        </c:when>
 						<c:otherwise>
-		            女
+		            男
 		        </c:otherwise>
 					</c:choose></td>
 				<td>${member.birthday}</td>
 <%--圖片再開	 			<td>${member.image}</td> --%>
+
+
 				<td>
 <form method="post" action="${pageContext.request.contextPath}/member/member.do">
     <input type="hidden" name="action" value="getOne">
     <input type="hidden" name="memId" value="${member.memId}">
     <input type="submit" value="修改">
 </form>			
-			
 				</td>
-
-
+				
+				
 			</tr>
 		</c:forEach>
 	</table>
