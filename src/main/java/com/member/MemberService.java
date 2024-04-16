@@ -20,7 +20,7 @@ public class MemberService {
 	}
 
 	public Member updateMember(Integer memId, String mName, String mAccount, String mPassword, String email,
-			String phone, String address, Integer mState, boolean gender, Date birthday) {
+			String phone, String address, byte mState, boolean gender, Date birthday) {
 //		, byte[] image
 		Member member = new Member();
 		member.setMemId(memId);

@@ -102,8 +102,8 @@ public class MemberServlet extends HttpServlet {
 		String email = req.getParameter("email").trim();
 		String phone = req.getParameter("phone").trim();
 		String address = req.getParameter("address").trim();
-		Integer mState = Integer.parseInt(req.getParameter("mState").trim());
-		boolean gender = Boolean.parseBoolean(req.getParameter("gender").trim());
+		Byte mState = Byte.parseByte(req.getParameter("mState").trim());
+		Boolean gender = Boolean.parseBoolean(req.getParameter("gender").trim());
 		Date birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 //		byte[] image = req.getParameter("image").getBytes(); // 處理方法可能需要根據實際情況調整
 //		, image
@@ -164,7 +164,7 @@ public class MemberServlet extends HttpServlet {
 		    errorMsgs.put("mState", "狀態不能為空！");
 		} else {
 		    try {
-		        mState = Integer.parseInt(mStateStr);
+		        mState = Byte.parseByte(mStateStr);
 		        // 這裡也可以添加對mState的進一步驗證，例如檢查其是否在特定範圍內等
 		    } catch (NumberFormatException e) {
 		        errorMsgs.put("mState", "無效的狀態格式！");
@@ -233,15 +233,5 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	// 圖片 先預留
-	public byte[] getDefaultImageData() {
-		File imageFile = new File("path/to/default/image.jpg"); // 替換為實際的文件路徑
-		byte[] imageData = null;
-		try {
-			imageData = Files.readAllBytes(imageFile.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-			// 處理異常，可能是文件不存在或讀取錯誤
-		}
-		return imageData;
-	}
+
 }
