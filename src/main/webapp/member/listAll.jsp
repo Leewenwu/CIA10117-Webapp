@@ -119,8 +119,8 @@
 			<th>性別</th>
 
 			<th>生日</th>
+			<th>圖片</th>
 			<th></th>
-<!-- 			<th></th> -->
 
 
 		</tr>
@@ -146,8 +146,12 @@
 		        </c:otherwise>
 					</c:choose></td>
 				<td>${member.birthday}</td>
-<%--圖片再開	 			<td>${member.image}</td> --%>
+				
+<%-- 圖片再開	--%>	
 
+ <td>
+ <img src="${pageContext.request.contextPath}/member/DBGifReader?memId=${member.memId}" width="100px">
+ </td> 
 
 				<td>
 <form method="post" action="${pageContext.request.contextPath}/member/member.do">

@@ -42,7 +42,7 @@ public class Member {
 	private Date birthday;
 
 	@Lob
-	@Column(name = "member_img", columnDefinition = "longblob")
+	@Column(name = "member_img")
 	private byte[] image;
 
 	

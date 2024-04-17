@@ -51,7 +51,8 @@ body {
 	<%-- 				</c:forEach> --%>
 	<!-- 			</ul> -->
 	<%-- 		</c:if> --%>
-	<form action="member.do" method="post">
+	
+	<form action="member.do" method="post"  enctype="multipart/form-data">
 
 		<table>
 			<tr>
@@ -71,15 +72,15 @@ body {
 			</tr>
 			<tr>
 				<th>密碼:</th>
-				<td><input type="text" name="mPassword" class="input-field" 
+				<td><input type="text" name="mPassword" class="input-field"
 					value="${param.mPassword}"> <span class="error-message">${errorMsgs.mPassword}</span>
 				</td>
 			</tr>
 			<tr>
 				<th>信箱:</th>
-				<td><input type="email" name="email" class="input-field"   style="width:300px"
-					value="${param.email}"> <span class="error-message">${errorMsgs.email}</span>
-				</td>
+				<td><input type="email" name="email" class="input-field"
+					style="width: 300px" value="${param.email}"> <span
+					class="error-message">${errorMsgs.email}</span></td>
 			</tr>
 			<tr>
 				<th>電話:</th>
@@ -113,17 +114,83 @@ body {
 				<th>生日:</th>
 				<td><input type="date" name="birthday"
 					value='${param.birthday}' pattern='yyyy-MM-dd' /></td>
-			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="送出修改"> <input
+				<th>圖片:</th>
+				
+				<td>	
+					<input id ="image" name="image" type="file" onclick="previewImage()" multiple="multiple" />
+				
+					<div id="blob_holder"><img src="${pageContext.request.contextPath}/member/DBGifReader?memId=${param.memId}" 	width="100px">
+					</div>
+				</td>
+			</tr>
+					
+					
+					
+		
+			
+			<tr>
+				<td colspan="2"><input type="submit"   value="送出修改"> <input
 					type="hidden" name="action" value="getUpdate"> <input
 					type="hidden" name="memId" value="${param.memId}"> <input
-					type="button" value="取消"
+					type="button" value="取消" id="submit"
 					onclick="location.href='${pageContext.request.contextPath}/member/member.do?action=getAll'">
 
 				</td>
 			</tr>
+			
+			
+			
 		</table>
 	</form>
+<!-- JavaScript part -->
+<script type="text/javascript">	
+	
+	//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("image");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = "2px solid black";
+		    while (blob_holder.firstChild) {
+                blob_holder.removeChild(blob_holder.firstChild);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
 </body>
 </html>
+
+
