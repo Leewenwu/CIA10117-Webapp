@@ -34,15 +34,15 @@ public class Member {
 	private String phone;
 	@Column(name = "member_address")
 	private String address;
-	@Column(name = "member_state", columnDefinition = "tinyint")
-	private Integer mState;
+	@Column(name = "member_state")
+	private Byte mState;
 	@Column(name = "member_gender")
-	private boolean gender;
+	private Boolean gender;
 	@Column(name = "member_birthday")
 	private Date birthday;
 
 	@Lob
-	@Column(name = "member_img", columnDefinition = "longblob")
+	@Column(name = "member_img")
 	private byte[] image;
 
 	
@@ -102,11 +102,11 @@ public class Member {
 		this.address = address;
 	}
 
-	public Integer getmState() {
+	public Byte getmState() {
 		return mState;
 	}
 
-	public void setmState(Integer mState) {
+	public void setmState(Byte mState) {
 		this.mState = mState;
 	}
 
@@ -114,7 +114,7 @@ public class Member {
 		return gender;
 	}
 
-	public void setGender(boolean gender) {
+	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
 	
@@ -147,7 +147,7 @@ public class Member {
 				+ gender + ", birtday=" + birthday + ", image=" + Arrays.toString(image) + "]";
 	}
 
-	public boolean getGender() {
+	public Boolean getGender() {
 		// TODO Auto-generated method stub
 		return gender;
 	}

@@ -20,8 +20,8 @@ public class MemberService {
 	}
 
 	public Member updateMember(Integer memId, String mName, String mAccount, String mPassword, String email,
-			String phone, String address, Integer mState, boolean gender, Date birthday) {
-//		, byte[] image
+			String phone, String address, byte mState, boolean gender, Date birthday, byte[] image) {
+		
 		Member member = new Member();
 		member.setMemId(memId);
 		member.setmName(mName);
@@ -33,11 +33,11 @@ public class MemberService {
 		member.setmState(mState);
 		member.setGender(gender);
 		member.setBirthday(birthday);
-//		member.setImage(image);
+		member.setImage(image);
 		dao.update(member);
 		return member;
 
-	}
+	}	
 
 	public byte[] getDefaultImageData() {
 		File imageFile = new File("path/to/default/image.jpg"); // 替換為實際的文件路徑
