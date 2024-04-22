@@ -1,5 +1,7 @@
 package com.member;
 
+import static com.member.Constants.PAGE_MAX_RESULT;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,27 @@ public class MemberDAOimpl implements MemberDAO {
 //			return null;
 //		}
 //	}
+
+	@Override
+	public List<Member> getAll(int Page) {
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			int first = (Page - 1) * PAGE_MAX_RESULT;
+
+			List<Member> page = session.createQuery("from Member", Member.class).setFirstResult(first)
+					.setMaxResults(PAGE_MAX_RESULT).list();
+			session.getTransaction().commit();
+			return page;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public List<Member> getAll() {
@@ -131,4 +154,22 @@ public class MemberDAOimpl implements MemberDAO {
 			return null;
 		}
 	}
+
+	@Override
+	public long getTotal() {
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			long total = session.createQuery("select count(*) from Member", Long.class).uniqueResult();
+			session.getTransaction().commit();
+			return total;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+
+		return -1;
+
+	}
+	
 }

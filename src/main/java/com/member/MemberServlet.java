@@ -44,7 +44,7 @@ public class MemberServlet extends HttpServlet {
 			forwardpath = getUpdate(req, res);
 			break;
 		case "compositeQuery":
-			forwardpath = getCompositeQuery(req,res);
+			forwardpath = getCompositeQuery(req, res);
 			break;
 		default:
 			forwardpath = "/index.jsp";
@@ -57,7 +57,17 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	private String getAll(HttpServletRequest req, HttpServletResponse res) {
-		List<Member> memberList = memberService.getAll();
+		String page = req.getParameter("page");
+		int currentpage = (page == null) ? 1 : Integer.parseInt(page);
+
+		List<Member> memberList = memberService.getAll(currentpage);
+
+		if (req.getSession().getAttribute("memberPageQty") == null) {
+			int memberPageQty = memberService.getPageTotal();
+			req.getSession().setAttribute("memberPageQty", memberPageQty);
+		}
+
+		req.setAttribute("currentpage", currentpage);
 		req.setAttribute("memberList", memberList);
 
 		return "/member/listAll.jsp";
@@ -217,13 +227,13 @@ public class MemberServlet extends HttpServlet {
 	public String getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
 		Map<String, String[]> map = req.getParameterMap();
 
-		if(map !=null) {
+		if (map != null) {
 			List<Member> memberlist = memberService.getCompositeQuery(map);
 			req.setAttribute("memberList", memberlist);
-		}else {
-			return "/index.jsp" ;
+		} else {
+			return "/index.jsp";
 		}
-		
+
 		return "/member/listAll.jsp";
 
 	}

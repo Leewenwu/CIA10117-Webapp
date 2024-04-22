@@ -1,5 +1,7 @@
 package com.member;
 
+import static com.member.Constants.PAGE_MAX_RESULT;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -56,8 +58,18 @@ public class MemberService {
 		return imageData;
 	}
 
+	public List<Member> getAll(int Page) {
+		return dao.getAll(Page);
+	}
+
 	public List<Member> getAll() {
 		return dao.getAll();
+	}
+
+	public int getPageTotal() {
+		long total = dao.getTotal();
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
 
 	public List<Member> getCompositeQuery(Map<String, String[]> map) {

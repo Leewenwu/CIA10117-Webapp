@@ -9,10 +9,11 @@ public interface MemberDAO {
 
 	Member findByPK(Integer memId);
 
-
+	List<Member> getAll(int Page);
+	
 	List<Member> getAll();
 	
 	List<Member> getCompositeQuery(Map<String, String> map);
 	
-
+	long getTotal();
 }

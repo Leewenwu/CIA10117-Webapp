@@ -94,11 +94,13 @@
 
 <body bgcolor='#ADD8E6'>
 
+	
+
   <div class="sidebar">
         <h2>標題</h2>
         <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
+        <a href="">2</a>
+        <a href="">3</a>
         <a href="index.jsp">回首頁</a>
    
     </div>
@@ -125,6 +127,17 @@
 		&nbsp;
 		<input size="30" type="submit" value="查詢" style="width:50px">
  		  <br>
+	<c:if test="${memberPageQty > 0}">
+  		<b><font color=red>第${currentpage}/${memberPageQty}頁</font></b>
+	</c:if>
+		
+	<c:if test="${currentpage - 1 != 0}">
+		<a href="${pageContext.request.contextPath}/member/member.do?action=getAll&page=${currentpage - 1}">上一頁</a>&nbsp;
+	</c:if>
+	
+	<c:if test="${currentpage + 1 <= memberPageQty}">
+		<a href="${pageContext.request.contextPath}/member/member.do?action=getAll&page=${currentpage + 1}">下一頁</a>&nbsp;
+	</c:if>
 
     <input type="hidden" name="action" value="compositeQuery">
  
