@@ -1,6 +1,14 @@
 package com.member;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,14 +28,31 @@ public class MemberDAOimpl implements MemberDAO {
 
 	}
 
+//	@Override
+//	public List<Member> getAll() {
+//		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//			return session.createQuery("from Member", Member.class).list();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+
 	@Override
 	public List<Member> getAll() {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			return session.createQuery("from Member", Member.class).list();
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			List<Member> members = session.createQuery("from Member", Member.class).list();
+			session.getTransaction().commit();
+			return members;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 		}
+		return null;
 	}
 
 	@Override
@@ -45,7 +70,7 @@ public class MemberDAOimpl implements MemberDAO {
 
 		}
 
-		return 0;
+		return -1;
 	}
 
 	@Override
@@ -66,20 +91,44 @@ public class MemberDAOimpl implements MemberDAO {
 
 	}
 
-//	@Override
-//	public List<Member> getAll() {
-//		Session session = getSession();
-//		try {
-//			session.beginTransaction();
-//			List<Member> members = session.createQuery("from Member", Member.class).list();
-//			session.getTransaction().commit();
-//			return members;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			if (session.getTransaction() != null) {
-//				session.getTransaction().rollback();
-//			}
-//		}
-//		return null;
-//	}
+	@Override
+	public List<Member> getCompositeQuery(Map<String, String> map) {
+		Session session = getSession();
+		if (map.size() == 0)
+			return getAll();
+
+		try {
+			session.beginTransaction();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Member> query = builder.createQuery(Member.class);
+			Root<Member> root = query.from(Member.class);
+			List<Predicate> predicates = new ArrayList<>();
+
+			for (Map.Entry<String, String> row : map.entrySet()) {
+				if ("mName".equals(row.getKey())) {
+					predicates.add(builder.like(root.get("mName"), "%" + row.getValue() + "%"));
+				}
+
+				if ("phone".equals(row.getKey())) {
+					predicates.add(builder.like(root.get("phone"), "%" + row.getValue() + "%"));
+				}
+
+				if ("mState".equals(row.getKey())) {
+					predicates.add(builder.equal(root.get("mState"), row.getValue()));
+				}
+			}
+
+			query.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+			query.orderBy(builder.asc(root.get("memId")));
+			TypedQuery<Member> Query = session.createQuery(query);
+			List<Member> result = Query.getResultList();
+			session.getTransaction().commit();
+			return result;
+
+		} catch (Exception e) {
+			session.getTransaction().rollback(); // 錯誤時回滾事務
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

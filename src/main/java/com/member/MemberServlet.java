@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 0,  
-		maxFileSize = 1024 * 1024 * 1,  
-		maxRequestSize = 1024 * 1024 * 10  
-)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 0, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 10)
 @WebServlet("/member/member.do")
 public class MemberServlet extends HttpServlet {
 
@@ -46,8 +43,11 @@ public class MemberServlet extends HttpServlet {
 		case "getUpdate":
 			forwardpath = getUpdate(req, res);
 			break;
+		case "compositeQuery":
+			forwardpath = getCompositeQuery(req,res);
+			break;
 		default:
-			forwardpath = "index.jsp";
+			forwardpath = "/index.jsp";
 
 		}
 		res.setContentType("text/html; charset=UTF-8");
@@ -196,25 +196,6 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.put("birthday", "無效的生日格式！");
 			}
 		}
-//		if (!errorMsgs.isEmpty()) {
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			Member prev = new Member();
-//			prev.setMemId(memId);
-//			prev.setmName(mName);
-//			prev.setmAccount(mAccount);
-//			prev.setmPassword(mPassword);
-//			prev.setEmail(email);
-//			prev.setPhone(phone);
-//			prev.setAddress(address);
-//			prev.setmState(mState);
-//			prev.setGender(gender);
-//			prev.setBirthday(birthday);
-//			//預留圖片的位置
-//			req.setAttribute("prev", prev);
-//			RequestDispatcher failureView = req.getRequestDispatcher("/member/update.jsp");
-//			failureView.forward(req, res);
-//			return "0"; // 程式中斷
-//		}
 
 		if (!errorMsgs.isEmpty()) {
 			RequestDispatcher failureView = req.getRequestDispatcher("/member/update.jsp");
@@ -233,6 +214,18 @@ public class MemberServlet extends HttpServlet {
 
 	}
 
-	// 圖片 先預留
+	public String getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
+		Map<String, String[]> map = req.getParameterMap();
+
+		if(map !=null) {
+			List<Member> memberlist = memberService.getCompositeQuery(map);
+			req.setAttribute("memberList", memberlist);
+		}else {
+			return "/index.jsp" ;
+		}
+		
+		return "/member/listAll.jsp";
+
+	}
 
 }

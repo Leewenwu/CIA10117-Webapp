@@ -102,10 +102,38 @@
         <a href="index.jsp">回首頁</a>
    
     </div>
-
+ 
+ 
+ 
+ 
  <div class="main-content">
  <h1>會員管理系統</h1>
+<br>
+	
+ <form method="post" action="${pageContext.request.contextPath}/member/member.do">	
+ 	
+ 		<label>會員姓名：</label>
+ 		<input type="text" name="mName"> 	
+ 		<label>電話：</label>
+ 		<input type="text" name="phone"> 
+ 		<label>帳號狀態：</label>
+ 		<select name="mState" >
+	<option value="0" ${member.mState == 0 ? 'selected' : ''}>未認證</option>
+	<option value="1" ${member.mState == 1 ? 'selected' : ''}>通過認證</option>
+	<option value="2" ${member.mState == 2 ? 'selected' : ''}>停權</option>
+		</select>
+		&nbsp;
+		<input size="30" type="submit" value="查詢" style="width:50px">
+ 		  <br>
+
+    <input type="hidden" name="action" value="compositeQuery">
+ 
+   
+</form>		
+
+	
 	<table>
+	
 	
 		<tr>
 			<th>會員編號</th>
