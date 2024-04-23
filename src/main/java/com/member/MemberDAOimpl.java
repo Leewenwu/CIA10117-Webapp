@@ -46,7 +46,6 @@ public class MemberDAOimpl implements MemberDAO {
 		try {
 			session.beginTransaction();
 			int first = (Page - 1) * PAGE_MAX_RESULT;
-
 			List<Member> page = session.createQuery("from Member", Member.class).setFirstResult(first)
 					.setMaxResults(PAGE_MAX_RESULT).list();
 			session.getTransaction().commit();
@@ -80,7 +79,6 @@ public class MemberDAOimpl implements MemberDAO {
 
 	@Override
 	public int update(Member member) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Session session = getSession();
 		try {
 			session.beginTransaction();
@@ -98,7 +96,6 @@ public class MemberDAOimpl implements MemberDAO {
 
 	@Override
 	public Member findByPK(Integer memId) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Session session = getSession();
 		try {
 			session.beginTransaction();
@@ -118,7 +115,7 @@ public class MemberDAOimpl implements MemberDAO {
 	public List<Member> getCompositeQuery(Map<String, String> map) {
 		Session session = getSession();
 		if (map.size() == 0)
-			return getAll();
+			return getAll(1);
 
 		try {
 			session.beginTransaction();
@@ -149,7 +146,7 @@ public class MemberDAOimpl implements MemberDAO {
 			return result;
 
 		} catch (Exception e) {
-			session.getTransaction().rollback(); // 錯誤時回滾事務
+			session.getTransaction().rollback();  
 			e.printStackTrace();
 			return null;
 		}
@@ -171,5 +168,5 @@ public class MemberDAOimpl implements MemberDAO {
 		return -1;
 
 	}
-	
+
 }

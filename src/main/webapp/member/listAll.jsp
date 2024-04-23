@@ -120,6 +120,7 @@
  		<input type="text" name="phone"> 
  		<label>帳號狀態：</label>
  		<select name="mState" >
+	<option value="" >全部</option>
 	<option value="0" ${member.mState == 0 ? 'selected' : ''}>未認證</option>
 	<option value="1" ${member.mState == 1 ? 'selected' : ''}>通過認證</option>
 	<option value="2" ${member.mState == 2 ? 'selected' : ''}>停權</option>
@@ -129,13 +130,13 @@
  		  <br>
 	<c:if test="${memberPageQty > 0}">
   		<b><font color=red>第${currentpage}/${memberPageQty}頁</font></b>
-	</c:if>
+	</c:if> 
 		
 	<c:if test="${currentpage - 1 != 0}">
 		<a href="${pageContext.request.contextPath}/member/member.do?action=getAll&page=${currentpage - 1}">上一頁</a>&nbsp;
 	</c:if>
 	
-	<c:if test="${currentpage + 1 <= memberPageQty}">
+	<c:if test="${currentpage + 1 <= memberPageQty}"> ${currentpage}
 		<a href="${pageContext.request.contextPath}/member/member.do?action=getAll&page=${currentpage + 1}">下一頁</a>&nbsp;
 	</c:if>
 

@@ -33,6 +33,8 @@ public class MemberServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String forwardpath = "";
+		
+		  
 		switch (action) {
 		case "getAll":
 			forwardpath = getAll(req, res);
@@ -59,14 +61,13 @@ public class MemberServlet extends HttpServlet {
 	private String getAll(HttpServletRequest req, HttpServletResponse res) {
 		String page = req.getParameter("page");
 		int currentpage = (page == null) ? 1 : Integer.parseInt(page);
-
+		
 		List<Member> memberList = memberService.getAll(currentpage);
-
+			
 		if (req.getSession().getAttribute("memberPageQty") == null) {
 			int memberPageQty = memberService.getPageTotal();
 			req.getSession().setAttribute("memberPageQty", memberPageQty);
 		}
-
 		req.setAttribute("currentpage", currentpage);
 		req.setAttribute("memberList", memberList);
 
