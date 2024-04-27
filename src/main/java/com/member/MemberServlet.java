@@ -33,7 +33,10 @@ public class MemberServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String forwardpath = "";
-		
+		if (action == null) {
+			action = "-1";
+			return;
+		}
 		  
 		switch (action) {
 		case "getAll":
@@ -52,8 +55,11 @@ public class MemberServlet extends HttpServlet {
 			forwardpath = "/index.jsp";
 
 		}
+		
 		res.setContentType("text/html; charset=UTF-8");
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardpath);
+		
 		dispatcher.forward(req, res);
 
 	}
@@ -207,9 +213,8 @@ public class MemberServlet extends HttpServlet {
 		}
 
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = req.getRequestDispatcher("/member/update.jsp");
-			failureView.forward(req, res);
-			return null; // 程式中斷
+		
+			return "/member/update.jsp";  // 程式中斷
 		}
 
 		Member getupdate = memberService.updateMember(memId, mName, mAccount, mPassword, email, phone, address, mState,

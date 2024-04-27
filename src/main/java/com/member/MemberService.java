@@ -80,7 +80,6 @@ public class MemberService {
 	}
 
 	public List<Member> getCompositeQuery(Map<String, String[]> map,int Page) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Map<String, String> query = new HashMap<>();
 		// Map.Entry即代表一組key-value
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
@@ -102,12 +101,9 @@ public class MemberService {
 		System.out.println(query);
 
 		try {
-			session.beginTransaction();
 			List<Member> list = dao.getCompositeQuery(query, Page);
-			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {
-			session.getTransaction().rollback();
 			e.printStackTrace();
 			return null;
 		}

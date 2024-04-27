@@ -1,4 +1,4 @@
-package com.ReserveH;
+package com.reserve;
 import javax.persistence.*;
 import java.util.Date;
 

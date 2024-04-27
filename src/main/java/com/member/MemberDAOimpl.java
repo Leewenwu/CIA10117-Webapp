@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import com.member.HibernateUtil;
 
-import util.HibernateUtil;
 
 public class MemberDAOimpl implements MemberDAO {
 
