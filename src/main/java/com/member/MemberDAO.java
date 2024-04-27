@@ -13,7 +13,11 @@ public interface MemberDAO {
 	
 	List<Member> getAll();
 	
-	List<Member> getCompositeQuery(Map<String, String> map);
+//	List<Member> getCompositeQuery(Map<String, String> map);
+	
+	List<Member> getCompositeQuery(Map<String, String> map,int Page);
 	
 	long getTotal();
+	
+	long getTotal(Map<String, String> map);
 }

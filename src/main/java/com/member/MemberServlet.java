@@ -97,9 +97,7 @@ public class MemberServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		Integer memId = Integer.parseInt(req.getParameter("memId").trim());
-
 		String mName = req.getParameter("mName").trim();
-
 		String mAccount = req.getParameter("mAccount").trim();
 		String mPassword = req.getParameter("mPassword").trim();
 		String email = req.getParameter("email").trim();
@@ -227,9 +225,22 @@ public class MemberServlet extends HttpServlet {
 
 	public String getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
 		Map<String, String[]> map = req.getParameterMap();
-
+		
+		
+		String page = req.getParameter("page");
+		int currentpage = (page == null) ? 1 : Integer.parseInt(page);
+		 List<Member> memberList = memberService.getCompositeQuery(map,currentpage);
+	
+		if (req.getSession().getAttribute("QmemberPageQty") == null) {
+			int memberPageQty = memberService.getPageTotal(map);
+			req.getSession().setAttribute("QmemberPageQty", memberPageQty);
+		}
+		
+		req.setAttribute("Qcurrentpage", currentpage);
+		req.setAttribute("QmemberList", memberList);	
+		
 		if (map != null) {
-			List<Member> memberlist = memberService.getCompositeQuery(map);
+			List<Member> memberlist = memberService.getCompositeQuery(map,currentpage);
 			req.setAttribute("memberList", memberlist);
 		} else {
 			return "/index.jsp";

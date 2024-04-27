@@ -66,13 +66,20 @@ public class MemberService {
 		return dao.getAll();
 	}
 
+	public int getPageTotal(Map<String, String[]> map) {
+		long total = dao.getTotal();
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+	
+	
 	public int getPageTotal() {
 		long total = dao.getTotal();
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
 
-	public List<Member> getCompositeQuery(Map<String, String[]> map) {
+	public List<Member> getCompositeQuery(Map<String, String[]> map,int Page) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Map<String, String> query = new HashMap<>();
 		// Map.Entry即代表一組key-value
@@ -96,7 +103,7 @@ public class MemberService {
 
 		try {
 			session.beginTransaction();
-			List<Member> list = dao.getCompositeQuery(query);
+			List<Member> list = dao.getCompositeQuery(query, Page);
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {

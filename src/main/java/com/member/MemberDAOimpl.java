@@ -111,11 +111,70 @@ public class MemberDAOimpl implements MemberDAO {
 
 	}
 
+//	@Override
+//	public List<Member> getCompositeQuery(Map<String, String> map) {
+//		Session session = getSession();
+//		if (map.size() == 0)
+//			return getAll(1);
+//
+//		try {
+//			session.beginTransaction();
+//			CriteriaBuilder builder = session.getCriteriaBuilder();
+//			CriteriaQuery<Member> query = builder.createQuery(Member.class);
+//			Root<Member> root = query.from(Member.class);
+//			List<Predicate> predicates = new ArrayList<>();
+//
+//			for (Map.Entry<String, String> row : map.entrySet()) {
+//				if ("mName".equals(row.getKey())) {
+//					predicates.add(builder.like(root.get("mName"), "%" + row.getValue() + "%"));
+//				}
+//
+//				if ("phone".equals(row.getKey())) {
+//					predicates.add(builder.like(root.get("phone"), "%" + row.getValue() + "%"));
+//				}
+//
+//				if ("mState".equals(row.getKey())) {
+//					predicates.add(builder.equal(root.get("mState"), row.getValue()));
+//				}
+//			}
+//
+//			query.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+//			query.orderBy(builder.asc(root.get("memId")));
+//			TypedQuery<Member> Query = session.createQuery(query);
+//			List<Member> result = Query.getResultList();
+//			session.getTransaction().commit();
+//			return result;
+//
+//		} catch (Exception e) {
+//			session.getTransaction().rollback();
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+
 	@Override
-	public List<Member> getCompositeQuery(Map<String, String> map) {
+	public long getTotal() {
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			long total = session.createQuery("select count(*) from Member", Long.class).uniqueResult();
+			session.getTransaction().commit();
+			return total;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+
+		return -1;
+
+	}
+
+	@Override
+	public List<Member> getCompositeQuery(Map<String, String> map, int currentPage) {
+
 		Session session = getSession();
 		if (map.size() == 0)
-			return getAll(1);
+			return getAll(currentPage); // 使用當前頁碼調用getAll方法
 
 		try {
 			session.beginTransaction();
@@ -140,33 +199,27 @@ public class MemberDAOimpl implements MemberDAO {
 
 			query.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 			query.orderBy(builder.asc(root.get("memId")));
-			TypedQuery<Member> Query = session.createQuery(query);
+
+			TypedQuery<Member> Query = session.createQuery(query).setFirstResult((currentPage - 1) * PAGE_MAX_RESULT)
+					.setMaxResults(PAGE_MAX_RESULT);
+
 			List<Member> result = Query.getResultList();
 			session.getTransaction().commit();
 			return result;
 
 		} catch (Exception e) {
-			session.getTransaction().rollback();  
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			return null;
 		}
 	}
 
 	@Override
-	public long getTotal() {
-		Session session = getSession();
-		try {
-			session.beginTransaction();
-			long total = session.createQuery("select count(*) from Member", Long.class).uniqueResult();
-			session.getTransaction().commit();
-			return total;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-
-		return -1;
-
+	public long getTotal(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
