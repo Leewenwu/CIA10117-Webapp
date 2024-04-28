@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 0,  
-		maxFileSize = 1024 * 1024 * 1,  
-		maxRequestSize = 1024 * 1024 * 10  
-)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 0, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 10)
 @WebServlet("/member/member.do")
 public class MemberServlet extends HttpServlet {
 
@@ -36,6 +33,11 @@ public class MemberServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String forwardpath = "";
+		if (action == null) {
+			action = "-1";
+			return;
+		}
+		  
 		switch (action) {
 		case "getAll":
 			forwardpath = getAll(req, res);
@@ -46,18 +48,33 @@ public class MemberServlet extends HttpServlet {
 		case "getUpdate":
 			forwardpath = getUpdate(req, res);
 			break;
+		case "compositeQuery":
+			forwardpath = getCompositeQuery(req, res);
+			break;
 		default:
-			forwardpath = "index.jsp";
+			forwardpath = "/index.jsp";
 
 		}
+		
 		res.setContentType("text/html; charset=UTF-8");
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardpath);
+		
 		dispatcher.forward(req, res);
 
 	}
 
 	private String getAll(HttpServletRequest req, HttpServletResponse res) {
-		List<Member> memberList = memberService.getAll();
+		String page = req.getParameter("page");
+		int currentpage = (page == null) ? 1 : Integer.parseInt(page);
+		
+		List<Member> memberList = memberService.getAll(currentpage);
+			
+		if (req.getSession().getAttribute("memberPageQty") == null) {
+			int memberPageQty = memberService.getPageTotal();
+			req.getSession().setAttribute("memberPageQty", memberPageQty);
+		}
+		req.setAttribute("currentpage", currentpage);
 		req.setAttribute("memberList", memberList);
 
 		return "/member/listAll.jsp";
@@ -86,9 +103,7 @@ public class MemberServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		Integer memId = Integer.parseInt(req.getParameter("memId").trim());
-
 		String mName = req.getParameter("mName").trim();
-
 		String mAccount = req.getParameter("mAccount").trim();
 		String mPassword = req.getParameter("mPassword").trim();
 		String email = req.getParameter("email").trim();
@@ -196,30 +211,10 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.put("birthday", "無效的生日格式！");
 			}
 		}
-//		if (!errorMsgs.isEmpty()) {
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			Member prev = new Member();
-//			prev.setMemId(memId);
-//			prev.setmName(mName);
-//			prev.setmAccount(mAccount);
-//			prev.setmPassword(mPassword);
-//			prev.setEmail(email);
-//			prev.setPhone(phone);
-//			prev.setAddress(address);
-//			prev.setmState(mState);
-//			prev.setGender(gender);
-//			prev.setBirthday(birthday);
-//			//預留圖片的位置
-//			req.setAttribute("prev", prev);
-//			RequestDispatcher failureView = req.getRequestDispatcher("/member/update.jsp");
-//			failureView.forward(req, res);
-//			return "0"; // 程式中斷
-//		}
 
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = req.getRequestDispatcher("/member/update.jsp");
-			failureView.forward(req, res);
-			return null; // 程式中斷
+		
+			return "/member/update.jsp";  // 程式中斷
 		}
 
 		Member getupdate = memberService.updateMember(memId, mName, mAccount, mPassword, email, phone, address, mState,
@@ -233,6 +228,31 @@ public class MemberServlet extends HttpServlet {
 
 	}
 
-	// 圖片 先預留
+	public String getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
+		Map<String, String[]> map = req.getParameterMap();
+		
+		
+		String page = req.getParameter("page");
+		int currentpage = (page == null) ? 1 : Integer.parseInt(page);
+		 List<Member> memberList = memberService.getCompositeQuery(map,currentpage);
+	
+		if (req.getSession().getAttribute("QmemberPageQty") == null) {
+			int memberPageQty = memberService.getPageTotal(map);
+			req.getSession().setAttribute("QmemberPageQty", memberPageQty);
+		}
+		
+		req.setAttribute("Qcurrentpage", currentpage);
+		req.setAttribute("QmemberList", memberList);	
+		
+		if (map != null) {
+			List<Member> memberlist = memberService.getCompositeQuery(map,currentpage);
+			req.setAttribute("memberList", memberlist);
+		} else {
+			return "/index.jsp";
+		}
+
+		return "/member/listAll.jsp";
+
+	}
 
 }

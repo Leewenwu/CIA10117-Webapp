@@ -143,10 +143,10 @@
     <input type="hidden" name="action" value="compositeQuery">
  
  
-<!--  ======================================================================= -->
-<%-- 	<c:if test="${currentpage + 1 <= QmemberPageQty}">  --%>
-<%-- 		<a href="${pageContext.request.contextPath}/member/member.do?action=compositeQuery&page=${Qcurrentpage + 1}">下一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
+ =======================================================================
+	<c:if test="${currentpage + 1 <= QmemberPageQty}"> 
+		<a href="${pageContext.request.contextPath}/member/member.do?action=compositeQuery&page=${Qcurrentpage + 1}">下一頁</a>&nbsp;
+	</c:if>
 
 
 
@@ -160,6 +160,8 @@
 
 	
 	<table>
+	
+	
 		<tr>
 			<th>會員編號</th>
 			<th>會員姓名</th>
@@ -170,12 +172,15 @@
 			<th>地址</th>
 			<th>帳號狀態</th>
 			<th>性別</th>
+
 			<th>生日</th>
 			<th>圖片</th>
 			<th></th>
+
+
 		</tr>
 
-		<c:forEach var="member" items="${memberList}">
+		<c:forEach var="member" items="${QmemberList}">
 
 			<tr>
 				<td>${member.memId}</td>

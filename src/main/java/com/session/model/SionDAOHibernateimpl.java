@@ -1,10 +1,10 @@
 package com.session.model;
 
 import java.util.List;
-import org.hibernate.Session;
-import org.springframework.data.jpa.provider.HibernateUtils;
 
-import util.HibernateUtil;
+import org.hibernate.Session;
+
+import com.member.HibernateUtil;
 
 public class SionDAOHibernateimpl implements SionDAO {
 
