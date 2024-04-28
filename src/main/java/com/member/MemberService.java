@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.Session;
-
 public class MemberService {
 
 	private MemberDAO dao;
@@ -46,17 +44,17 @@ public class MemberService {
 
 	}
 
-	public byte[] getDefaultImageData() {
-		File imageFile = new File("path/to/default/image.jpg"); // 替換為實際的文件路徑
-		byte[] imageData = null;
-		try {
-			imageData = Files.readAllBytes(imageFile.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-			// 處理異常，可能是文件不存在或讀取錯誤
-		}
-		return imageData;
-	}
+//	public byte[] getDefaultImageData() {
+//		File imageFile = new File("member/pic/no.jpg"); // 替換為實際的文件路徑
+//		byte[] imageData = null;
+//		try {
+//			imageData = Files.readAllBytes(imageFile.toPath());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			// 處理異常，可能是文件不存在或讀取錯誤
+//		}
+//		return imageData;
+//	}
 
 	public List<Member> getAll(int Page) {
 		return dao.getAll(Page);

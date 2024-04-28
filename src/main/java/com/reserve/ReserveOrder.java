@@ -1,8 +1,12 @@
 package com.reserve;
 import javax.persistence.*;
+
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.util.Date;
 
 @Entity
+@DynamicUpdate
 @Table(name = "reserve_order")
 public class ReserveOrder {
     @Id

@@ -7,6 +7,10 @@ public interface MemberDAO {
 
 	int update(Member member);
 
+	long getTotal();
+	
+	long getTotal(Map<String, String> map);
+
 	Member findByPK(Integer memId);
 
 	List<Member> getAll(int Page);
@@ -16,8 +20,4 @@ public interface MemberDAO {
 //	List<Member> getCompositeQuery(Map<String, String> map);
 	
 	List<Member> getCompositeQuery(Map<String, String> map,int Page);
-	
-	long getTotal();
-	
-	long getTotal(Map<String, String> map);
 }
