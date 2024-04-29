@@ -21,7 +21,7 @@
 //			throws IOException, ServletException {
 //		SessionFactory factory = HibernateUtil.getSessionFactory();
 //		try {
-//			System.out.println("濾器開啟交易");
+//			System.out.println("濾器開啟交易!");
 //			factory.getCurrentSession().beginTransaction();
 //			chain.doFilter(req, res);
 //			factory.getCurrentSession().getTransaction().commit();
