@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
+import com.member.Member;
 
 import util.HibernateUtil;
 
@@ -46,7 +46,18 @@ public class ReserveDAOimpl implements ReserveDAO {
 
 	@Override
 	public long getTotal() {
-		return getSession().createQuery("select count(*) from ReserveOrder", Long.class).uniqueResult();
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			long total = session.createQuery("select count(*) from ReserveOrder", Long.class).uniqueResult();
+			session.getTransaction().commit();
+			return total;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+
+		return -1;
 
 	}
 
@@ -57,7 +68,19 @@ public class ReserveDAOimpl implements ReserveDAO {
 
 	@Override
 	public List<ReserveOrder> getAll() {
-		return getSession().createQuery("from ReserveOrder", ReserveOrder.class).list();
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			List<ReserveOrder> reserve = session.createQuery("from ReserveOrder", ReserveOrder.class).list();
+			session.getTransaction().commit();
+			return reserve;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+		}
+		return null;
 	}
 //
 //	@Override
@@ -68,7 +91,7 @@ public class ReserveDAOimpl implements ReserveDAO {
 //				.setMaxResults(PAGE_MAX_RESULT).list();
 //
 //	}
-	
+
 	@Override
 	public List<ReserveOrder> getAll(int Page) {
 		Session session = getSession();
@@ -88,10 +111,6 @@ public class ReserveDAOimpl implements ReserveDAO {
 		}
 		return null;
 	}
-
-	
-	
-	
 
 	@Override
 	public List<ReserveOrder> getCompositeQuery(Map<String, String> map, int Page) {

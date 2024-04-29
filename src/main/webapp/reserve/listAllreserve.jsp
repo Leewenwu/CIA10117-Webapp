@@ -94,8 +94,7 @@ tr:nth-child(even) {
 
 	<div class="sidebar">
 		<h2>標題</h2>
-		<a
-			href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll">會員管理</a>
+
 		<a href="#">2</a> <a href="index.jsp">回首頁</a>
 
 	</div>
@@ -112,32 +111,42 @@ tr:nth-child(even) {
 
 		<table>
 			<tr>
+				<th>餐廳訂單編號</th>
+				<th>餐廳場次編號</th>
 				<th>會員編號</th>
-				<th>會員姓名</th>
-				<th>帳號</th>
-				<th>密碼</th>
-				<th>信箱</th>
-				<th>電話</th>
-				<th>地址</th>
-				<th>帳號狀態</th>
-				<th>性別</th>
-				<th>生日</th>
-				<th>圖片</th>
+				<th>訂單日期</th>
+				<th>訂單人數</th>
+				<th>訂單狀態</th>
+				<th>預訂日期</th>
+				<th>訂單備註</th>
 				<th></th>
+
 			</tr>
 
-			<c:forEach var="member" items="${resList}">
+			<c:forEach var="ReserveOrder" items="${resList}">
 
 				<tr>
 					<td>${ReserveOrder.reserveOrderId}</td>
-					<td>${ReserveOrder.reserveSessionId}</td>
-				
+					<td>${ReserveOrder.reserveSession.reserveSessionId},${ReserveOrder.reserveSession.sessionTime}</td>
+					<td>${ReserveOrder.memberId}</td>
+					<td>${ReserveOrder.reserveOrderDate}</td>
+					<td>${ReserveOrder.reserveNumber}</td>
+					<td>${ReserveOrder.reserveOrderState}</td>
+					<td><fmt:formatDate value="${ReserveOrder.bookingDate}" pattern="yyyy-MM-dd HH:mm" /></td>
+					<td>${ReserveOrder.orderNote}</td>
+
+
 
 					<td>
+
+
+
+
+
 						<form method="post"
-							action="${pageContext.request.contextPath}/member/member.do">
+							action="${pageContext.request.contextPath}/reserve/reserve.do">
 							<input type="hidden" name="action" value="getOne"> <input
-								type="hidden" name="memId" value="${member.memId}"> <input
+								type="hidden" name="" value="${member.memId}"> <input
 								type="submit" value="修改">
 						</form>
 					</td>

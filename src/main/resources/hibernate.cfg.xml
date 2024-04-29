@@ -17,11 +17,10 @@
 		<property name="hibernate.hbm2ddl.auto">validate</property>
 		<property name="hibernate.current_session_context_class">thread</property>
 
-		<property name="hibernate.format_sql">true</property>	
+<!-- 		<property name="hibernate.format_sql">true</property>	 -->
 
-
-<!-- 		<mapping class="com.reserve.ReserveSession" /> -->
-<!-- 		<mapping class="com.reserve.ReserveOrder" /> -->
+		<mapping class="com.reserve.ReserveSession" />
+		<mapping class="com.reserve.ReserveOrder" />
 		<mapping class="com.member.Member" />
 <!-- 		<mapping class="com.session.model.Sion" /> -->
 	</session-factory>

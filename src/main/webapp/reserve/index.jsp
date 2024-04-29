@@ -57,7 +57,7 @@
 <body>
     <div class="sidebar">
         <h2>標題</h2>
-        <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a>
+<%--         <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a> --%>
         <a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll">餐廳訂位管理</a>
 
 

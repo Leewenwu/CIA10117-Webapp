@@ -26,18 +26,17 @@ public class ReserveService {
 	}
 
 	public ReserveOrder update(Integer reserveOrderId, Integer reserveSessionId, Integer memberId,
-			Date reserveOrderDate, Integer reserveNumber, Integer reserveOrderState, Timestamp bookingDate,
+			Date reserveOrderDate, Integer reserveNumber, Byte reserveOrderState, Timestamp bookingDate,
 			String orderNote, ReserveSession reserveSession) {
 
 		ReserveOrder order = new ReserveOrder();
-		order.setReserveSessionId(reserveSessionId);
 		order.setMemberId(memberId);
 		order.setReserveOrderDate(reserveOrderDate);
 		order.setReserveNumber(reserveNumber);
 		order.setReserveOrderState(reserveOrderState);
 		order.setBookingDate(bookingDate);
 		order.setOrderNote(orderNote);
-		order.setReserveSession(reserveSession);
+		order.setReserveOrderId(reserveSessionId);
 
 		dao.update(order);
 		return order;

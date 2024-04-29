@@ -3,6 +3,7 @@ package com.reserve;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,8 @@ public class ReserveSession {
     @Column(name = "session_time", nullable = false, length = 10)
     private String sessionTime;
 
-    @OneToMany(mappedBy = "reserveSession")
+    
+    @OneToMany(mappedBy = "reserveSession",  cascade = CascadeType.ALL)
     private Set<ReserveOrder> reserveOrders = new HashSet<>();
 
 	public Integer getReserveSessionId() {
