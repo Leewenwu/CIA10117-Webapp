@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+//
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 0, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 10)
 @WebServlet("/member/member.do")
 public class MemberServlet extends HttpServlet {
