@@ -94,8 +94,9 @@ tr:nth-child(even) {
 
 	<div class="sidebar">
 		<h2>標題</h2>
-
-		<a href="#">2</a> <a href="index.jsp">回首頁</a>
+ 		 <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a>
+        <a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll">餐廳訂位管理</a>
+		<a href="${pageContext.request.contextPath}/member/index.jsp">回首頁</a>
 
 	</div>
 
@@ -128,7 +129,7 @@ tr:nth-child(even) {
 				<tr>
 					<td>${ReserveOrder.reserveOrderId}</td>
 					<td>${ReserveOrder.reserveSession.reserveSessionId},${ReserveOrder.reserveSession.sessionTime}</td>
-					<td>${ReserveOrder.memberId}</td>
+					<td>${ReserveOrder.member.memId}</td>
 					<td>${ReserveOrder.reserveOrderDate}</td>
 					<td>${ReserveOrder.reserveNumber}</td>
 					<td>${ReserveOrder.reserveOrderState}</td>

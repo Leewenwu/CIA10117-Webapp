@@ -2,16 +2,23 @@ package com.member;
 
 import java.sql.Date;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.reserve.ReserveOrder;
 //
 @Entity
 @Table(name = "member")
@@ -44,6 +51,10 @@ public class Member {
 	@Lob
 	@Column(name = "member_img")
 	private byte[] image;
+	
+
+	@OneToMany(mappedBy = "member",  cascade = CascadeType.ALL)
+	private Set<ReserveOrder> reserveOrders = new HashSet<>();
 
 	
 	public Integer getMemId() {

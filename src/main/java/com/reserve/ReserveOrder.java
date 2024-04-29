@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.member.Member;
+
 import java.util.Date;
 
 @Entity
@@ -15,8 +17,6 @@ public class ReserveOrder {
 	@Column(name = "reserve_order_id", nullable = false)
 	private Integer reserveOrderId;
 
-	@Column(name = "member_id", nullable = false)
-	private Integer memberId;
 
 	@Column(name = "reserve_order_date", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -35,9 +35,11 @@ public class ReserveOrder {
 	@Column(name = "order_note", length = 50)
 	private String orderNote;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id" )
+	private Member member;
+
 	
-	
-//	@Transient
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "reserve_session_id", referencedColumnName = "reserve_session_id" )
 	private ReserveSession reserveSession;
@@ -50,12 +52,22 @@ public class ReserveOrder {
 		this.reserveOrderId = reserveOrderId;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+	
+	
+//	public Integer getMemberId() {
+//		return memberId;
+//	}
+//
+//	public void setMemberId(Integer memberId) {
+//		this.memberId = memberId;
+//	}
+
+	public Member getMember() {
+		return member;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public Date getReserveOrderDate() {
