@@ -12,7 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
-
+//
 @Entity
 @Table(name = "member")
 @DynamicUpdate
