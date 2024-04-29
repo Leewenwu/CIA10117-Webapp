@@ -65,7 +65,7 @@ public class Member {
 	public String getmAccount() {
 		return mAccount;
 	}
-
+  
 	public void setmAccount(String mAccount) {
 		this.mAccount = mAccount;
 	}
