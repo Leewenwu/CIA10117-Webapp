@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface ReserveDAO {
-	int insert(ReserveOrder Reserve);
+	int insert(ReserveOrder entity);
 
-	int update(ReserveOrder Reserve);
+	int update(ReserveOrder entity);
 
 	long getTotal();
 	
-	ReserveOrder findPK(Integer reserveOrderId);
+	ReserveOrder findPK(Integer id);
 
 	List<ReserveOrder> getAll();
 

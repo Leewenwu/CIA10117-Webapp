@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.member.HibernateUtil;
+import util.HibernateUtil;
 
 public class SionDAOHibernateimpl implements SionDAO {
 
