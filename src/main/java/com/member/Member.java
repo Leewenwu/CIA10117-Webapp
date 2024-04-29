@@ -57,7 +57,7 @@ public class Member {
 	public String getmName() {
 		return mName;
 	}
-
+   
 	public void setmName(String mName) {
 		this.mName = mName;
 	}
