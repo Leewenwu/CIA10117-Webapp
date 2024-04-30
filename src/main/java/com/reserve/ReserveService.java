@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
+import com.member.Member;
 
 public class ReserveService {
 
@@ -25,18 +25,20 @@ public class ReserveService {
 
 	}
 
-	public ReserveOrder update(Integer reserveOrderId, Integer reserveSessionId, Integer memberId,
-			Date reserveOrderDate, Integer reserveNumber, Byte reserveOrderState, Timestamp bookingDate,
-			String orderNote, ReserveSession reserveSession) {
+	public ReserveOrder update(Integer reserveOrderId, Integer reserveSessionId, Member member, Date reserveOrderDate,
+			Integer reserveNumber, Byte reserveOrderState, Timestamp bookingDate, String orderNote,
+			ReserveSession reserveSession) {
 
 		ReserveOrder order = new ReserveOrder();
-		order.setMemberId(memberId);
+
 		order.setReserveOrderDate(reserveOrderDate);
 		order.setReserveNumber(reserveNumber);
 		order.setReserveOrderState(reserveOrderState);
 		order.setBookingDate(bookingDate);
 		order.setOrderNote(orderNote);
 		order.setReserveOrderId(reserveSessionId);
+		order.setMember(member);
+		order.setReserveSession(reserveSession);
 
 		dao.update(order);
 		return order;
@@ -66,20 +68,20 @@ public class ReserveService {
 		return pageQty;
 
 	}
-	
-	public List<ReserveOrder> getCompositeQuery(Map<String, String[]> map,int Page) {
+
+	public List<ReserveOrder> getCompositeQuery(Map<String, String[]> map, int Page) {
 		Map<String, String> query = new HashMap<>();
 		// Map.Entry即代表一組key-value
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
 
 		for (Map.Entry<String, String[]> row : entry) {
 			String key = row.getKey();
-			// 因為請求參數裡包含了action，做個去除動作
+
 			if ("action".equals(key)) {
 				continue;
 			}
-			// 若是value為空即代表沒有查詢條件，做個去除動作
-			String value = row.getValue()[0]; // getValue拿到一個String陣列, 接著[0]取得第一個元素檢查
+
+			String value = row.getValue()[0];
 			if (value == null || value.isEmpty()) {
 				continue;
 			}
