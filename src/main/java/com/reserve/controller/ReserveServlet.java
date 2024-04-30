@@ -115,10 +115,10 @@ public class ReserveServlet extends HttpServlet {
 
 		if (req.getSession().getAttribute("resPageQty") == null) {
 			int resPageQty = reserveService.getPageTotal();
-		System.out.println("!");
+		 
 			req.getSession().setAttribute("resPageQty", resPageQty);
 		}
-		System.out.println("!111");
+		 
 		req.setAttribute("resList", resList);
 		req.setAttribute("currentPage", currentPage);
 
