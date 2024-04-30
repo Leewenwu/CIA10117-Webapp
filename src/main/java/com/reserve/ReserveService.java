@@ -2,8 +2,8 @@ package com.reserve;
 
 import static com.reserve.Constants.PAGE_MAX_RESULT;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +25,30 @@ public class ReserveService {
 
 	}
 
+	public ReserveOrder insert(Date reserveOrderDate, 
+			Integer reserveNumber, 
+//			Byte reserveOrderState,
+			Date bookingDate, 
+			String orderNote,
+			Member member,
+			ReserveSession reserveSession) {
+
+		ReserveOrder order = new ReserveOrder();
+		order.setReserveOrderDate(reserveOrderDate);
+		order.setReserveNumber(reserveNumber);
+//		order.setReserveOrderState(reserveOrderState);
+		order.setBookingDate(bookingDate);
+		order.setOrderNote(orderNote);
+		order.setMember(member);
+		order.setReserveSession(reserveSession);
+
+		dao.insert(order);
+		return order;
+
+	}
+
 	public ReserveOrder update(Integer reserveOrderId, Integer reserveSessionId, Member member, Date reserveOrderDate,
-			Integer reserveNumber, Byte reserveOrderState, Timestamp bookingDate, String orderNote,
+			Integer reserveNumber, Byte reserveOrderState, Date bookingDate, String orderNote,
 			ReserveSession reserveSession) {
 
 		ReserveOrder order = new ReserveOrder();

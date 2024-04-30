@@ -18,4 +18,6 @@ public interface ReserveDAO {
 
 	List<ReserveOrder> getCompositeQuery(Map<String, String> map, int Page);
 
+	ReserveSession findsessionPK(Integer id);
+
 }

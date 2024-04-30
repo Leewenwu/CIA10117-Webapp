@@ -59,7 +59,7 @@
         <h2>標題</h2>
         <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a>
         <a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll">餐廳訂位管理</a>
-        <a href="#">3</a>
+        <a href="${pageContext.request.contextPath}/reserve/addreserve.jsp">我要訂位</a>
         <a href="#">4</a>
 
     </div>

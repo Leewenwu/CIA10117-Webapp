@@ -1,11 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="com.order.model.*"%>
+<%@ page import="com.reserve.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%
-OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO");
-%>
+
 <html>
 <head>
 
@@ -15,7 +13,8 @@ OrderVO ordVO = (OrderVO) request.getAttribute("OrderVO");
 	rel="stylesheet">
 <!-- 引入flatpickr JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<title>新增訂單</title>
+
+<title>訂位</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -65,12 +64,12 @@ button:hover {
 	background-color: #004494;
 }
 </style>
+
+
 </head>
+
+
 <body>
-
-
-
-
 	<div class="form-container">
 
 		<h2>新增訂單</h2>
@@ -85,46 +84,17 @@ button:hover {
 			</ul>
 		</c:if>
 
-		<form action="order.do" method="post">
-
-			<label for="sessionid">場次編號:依預定時間自動選擇</label> <input type="text"
-				id="sessionid" name="sessionid" readonly> <label
-				for="memberid">會員編號1001-1007:</label> <select name="memberid"
-				id="memberid">
-				<option value="1001">1001</option>
-				<option value="1002">1002</option>
-				<option value="1003">1003</option>
-				<option value="1004">1004</option>
-				<option value="1005">1005</option>
-				<option value="1006">1006</option>
-				<option value="1007">1007</option>
-			</select>
-
-			<!--Bean選單  
-				<jsp:useBean id="ordSvc" scope="page"
-				class="com.order.model.OrderService" />	
-			</select> <label for="memberid">會員編號1001-1007:</label> <select name="memberid"
-				id="memberid">
-				<c:forEach var="orderVO" items="${ordSvc.all}">
-					<option value="${orderVO.memberid}">${orderVO.memberid}
-				</c:forEach>
-			</select>
- -->
-
-			<!--  <label for="memberid">會員編號:</label>
-    <jsp:useBean id="ordSvc1" scope="page" class="com.order.model.OrderService" />        
-       <select size="3" name="memberid">
-         <c:forEach var="orderVO" items="${ordSvc1.all}" > 
-          <option value="${orderVO.memberid}">${orderVO.memberid}
-         </c:forEach>   
-       </select>          -->
-
-
-
-
-
-			<label for="orderdate">訂單日期:</label> <input type="date"
-				name="orderdate" id="orderdate">
+		<form action="reserve.do" method="post">
+		
+			<label>測試用會員編號</label>
+			<input type="text"  name="memId" value="1" > 
+	
+	
+			<label for="sessionId">場次編號:依預定時間自動選擇</label> 
+			<input type="text"	id="sessionId" name="sessionId" > 
+			<label	for="memId">會員編號:</label>
+			<label for="OrderDate">訂單日期:</label>
+			<input type="date" name="OrderDate" id="OrderDate">
 
 			<script>
 				// 獲取當前日期
@@ -136,21 +106,21 @@ button:hover {
 				today = yyyy + '-' + mm + '-' + dd;
 
 				// 設置input元素的值為當前日期
-				document.getElementById('orderdate').value = today;
+				document.getElementById('OrderDate').value = today;
 			</script>
 
 
 
-			<label for="Number">人數:</label> <input type="text" name="number">
+			<label for="reserveNumber">人數:</label> <input type="text" name="reserveNumber">
 
-			<label for="Bookingdate">預定日期:(請選擇)</label> <input
-				type="datetime-local" name="bookingdate" id="bookingdate">
+			<label for="bookingDate">預定日期:(請選擇)</label> <input
+				type="datetime-local" name="bookingDate" id="bookingDate">
 
 
 			<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 			<script>
 				flatpickr(
-						"#bookingdate",
+						"#bookingDate",
 						{
 							enableTime : true,
 							noCalendar : false,
@@ -177,24 +147,23 @@ button:hover {
 								const hour = selectedDates[0].getHours();
 								const sessionidValue = hour < 14 ? "101"
 										: "102";
-								document.getElementById("sessionid").value = sessionidValue;
+								document.getElementById("sessionId").value = sessionidValue;
 
-								req.setAttribute("sessionid", sessionid);
+								req.setAttribute("sessionId", sessionId);
 							}
 						});
 			</script>
 
 
-			<label for="Ordernote">備註:</label> 
-			<input type="TEXT"	name="ordernote"> 
-			
-			
-			
-			<input type="hidden" name="action"				value="insert">
+			<label for="Note">備註:</label> <input type="TEXT"	name="Note"> 
+				
+				
+				
+			<input type="hidden" name="action"	value="insert">
 			<button type="submit" value="送出">新增</button>
 
 			<h4>
-				<a href="select_page.jsp">回首頁</a>
+				<a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll">回首頁</a>
 			</h4>
 
 

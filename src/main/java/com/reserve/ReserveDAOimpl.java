@@ -31,17 +31,36 @@ public class ReserveDAOimpl implements ReserveDAO {
 
 	@Override
 	public int insert(ReserveOrder entity) {
-		return (Integer) getSession().save(entity);
+		Session session = getSession();
+
+		try {
+			session.beginTransaction();
+			session.save(entity);
+			session.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return -1;
+		}
 	}
 
 	@Override
 	public int update(ReserveOrder entity) {
+		Session session = getSession();
+
 		try {
-			getSession().update(entity);
+			session.beginTransaction();
+			session.update(entity);
+			session.getTransaction().commit();
+
 			return 1;
 		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
 			return -1;
 		}
+
 	}
 
 	@Override
@@ -63,8 +82,40 @@ public class ReserveDAOimpl implements ReserveDAO {
 
 	@Override
 	public ReserveOrder findPK(Integer id) {
-		return getSession().get(ReserveOrder.class, id);
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			ReserveOrder orderid = session.get(ReserveOrder.class, id);
+			session.getTransaction().commit();
+			return orderid;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+
+		return null;
+
 	}
+	
+	@Override
+	public ReserveSession findsessionPK(Integer id) {
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			ReserveSession sessionid = session.get(ReserveSession.class, id);
+			session.getTransaction().commit();
+			return sessionid;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+
+		return null;
+
+	}
+		
+ 
+	
 
 	@Override
 	public List<ReserveOrder> getAll() {

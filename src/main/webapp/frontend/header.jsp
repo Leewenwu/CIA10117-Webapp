@@ -27,7 +27,7 @@
                           <div class="collapse navbar-collapse" id="navbarsExample04">
                               <ul class="navbar-nav mr-auto">
                                   <li class="nav-item">
-                                      <a class="nav-link active fw-bold" href="index.html">首頁</a>
+                                      <a class="nav-link  fw-bold" href="index.html">首頁</a>
                                       <!-- 包含  最新消息 媒體報導...  -->
                                   </li>
                                   <li class="nav-item">
@@ -43,7 +43,7 @@
                                       <a class="nav-link fw-bold" href="blog.html">活動報名</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link fw-bold" href="restaurant.html">餐飲服務</a>
+                                    <a class="nav-link fw-bold" href="restaurant.jsp">餐飲服務</a>
                                 </li>
                                   <li class="nav-item">
                                       <a class="nav-link  fw-bold" href="conference.html">宴會會議</a>
