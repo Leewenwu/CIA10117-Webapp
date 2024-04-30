@@ -111,12 +111,14 @@ public class ReserveServlet extends HttpServlet {
 	private String getAllReserve(HttpServletRequest req, HttpServletResponse rep) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		List<ReserveOrder> resList = reserveService.getAll();
+		List<ReserveOrder> resList = reserveService.getAll(currentPage);
 
 		if (req.getSession().getAttribute("resPageQty") == null) {
 			int resPageQty = reserveService.getPageTotal();
+		System.out.println("!");
 			req.getSession().setAttribute("resPageQty", resPageQty);
 		}
+		System.out.println("!111");
 		req.setAttribute("resList", resList);
 		req.setAttribute("currentPage", currentPage);
 

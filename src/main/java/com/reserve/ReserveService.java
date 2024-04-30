@@ -89,7 +89,7 @@ public class ReserveService {
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 
-	}
+	}	
 
 	public List<ReserveOrder> getCompositeQuery(Map<String, String[]> map, int Page) {
 		Map<String, String> query = new HashMap<>();

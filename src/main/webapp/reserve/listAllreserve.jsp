@@ -108,6 +108,17 @@ tr:nth-child(even) {
 		<c:if test="${resPageQty > 0}">
 			<b><font color=red>第${currentPage}/${resPageQty}頁</font></b>
 		</c:if>
+		
+		<c:if test="${currentPage -1 != 0}">
+		<a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll&page=${currentPage - 1}">上一頁</a>
+		 
+		</c:if>
+			<c:if test="${currentPage +1 <= resPageQty}">${currentPage}
+		<a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll&page=${currentPage + 1}">下一頁</a>
+	 
+		</c:if>
+		
+		
 		<br>
 
 		<table>

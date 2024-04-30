@@ -1,6 +1,6 @@
 package com.reserve;
 
-import static com.member.Constants.PAGE_MAX_RESULT;
+import static com.reserve.Constants.PAGE_MAX_RESULT;
 
 import java.util.ArrayList;
 import java.util.List;
