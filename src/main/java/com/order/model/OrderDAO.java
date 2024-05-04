@@ -72,9 +72,9 @@ public class OrderDAO implements OrderDAO_interface {
 			if (con != null) {
 				try {
 					con.close();
-				} catch (Exception e) {
+			} catch (Exception e) {
 					e.printStackTrace(System.err);
-				}
+					}
 			}
 		}
 

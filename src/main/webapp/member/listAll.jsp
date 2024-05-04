@@ -99,9 +99,9 @@
   <div class="sidebar">
         <h2>標題</h2>
         <a href="${pageContext.request.contextPath}/member/member.do?action=getAll">會員管理</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="index.jsp">回首頁</a>
+        <a href="${pageContext.request.contextPath}/reserve/reserve.do?action=getAll">餐廳訂位管理</a>
+     
+        <a href="${pageContext.request.contextPath}/member/index.jsp">回首頁</a>
    
     </div>
  
@@ -185,7 +185,20 @@
 				<td>${member.email}</td>
 				<td>${member.phone}</td>
 				<td>${member.address}</td>
-				<td>${member.mState}</td>
+				<td><c:choose>
+				    <c:when test="${member.mState == 0}">
+				      未認證
+				    </c:when>
+				    <c:when test="${member.mState == 1}">
+				      通過認證
+				    </c:when>
+				    <c:when test="${member.mState == 2}">
+				      停權
+				    </c:when>
+				    <c:otherwise>
+				      異常!
+				    </c:otherwise>
+				  </c:choose></td>
 		
 				<td><c:choose>
 						<c:when test="${member.gender}">

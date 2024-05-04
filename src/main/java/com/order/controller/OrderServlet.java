@@ -229,9 +229,9 @@ public class OrderServlet extends HttpServlet {
 			} else {
 				try {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-					// 将输入字符串转换为 LocalDateTime
+					 
 					LocalDateTime localDateTime = LocalDateTime.parse(bookingdateStr, formatter);
-					// 将 LocalDateTime 转换为 Timestamp
+					 
 					bookingdate = Timestamp.valueOf(localDateTime);
 
 //					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");

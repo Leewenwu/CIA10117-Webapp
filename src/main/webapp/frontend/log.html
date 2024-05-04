@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+   <head>
+         
+         <!-- 基本設定 -->
+         <meta charset="utf-8">
+         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+         <!-- 移動設備基本設定 -->
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+         <!-- 網站 Meta 資訊 -->
+         <title>童樂渡假村 Joyful resort</title>
+         <meta name="keywords" content="">
+         <meta name="description" content="">
+         <meta name="author" content="">
+         <!-- 引入 Bootstrap CSS -->
+         <link rel="stylesheet" href="css/bootstrap.min.css">
+         <!-- 網站主要樣式表 -->
+         <link rel="stylesheet" href="css/style.css">
+         <!-- 響應式樣式表 -->
+         <link rel="stylesheet" href="css/responsive.css">
+         <!-- 網站圖標 -->
+         <link rel="icon" href="images/fevicon.png" type="image/gif" />
+         <!-- 自定義滾動條樣式 -->
+         <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+         <!-- 較舊IE版本支持 -->
+         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+         <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+         <!-- 引入 Bootstrap 和 jQuery -->
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+         <link rel="stylesheet" href="css/log.css">   
+         
+   </head>
+
+
+<body class="main-layout">  <!-- body 主體 -->
+    <div class="loader_bg">   <!-- 頁面加載動畫 -->
+      <div class="loader"><img src="images/loading.gif" alt="#"/></div>
+    </div>
+   
+    <header>    <!-- 頁面頭部 -->
+         <div class="header">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo">
+                              <a href="index.html"><h1>童樂渡假村</h1></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                     <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                           <ul class="navbar-nav mr-auto">
+                              <li class="nav-item active">
+                                 <a class="nav-link" href="index.html">首頁</a>
+                                 <!-- 包含 關於我們 最新消息 媒體報導...  --> 
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="about.html">關於我們</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="room.html">飯店設施</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="gallery.html">線上訂房</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="blog.html">活動報名</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="contact.html">聯絡我們</a> 
+                                 <!-- 包含常見問題 -->
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="login.html">會員登入</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </nav>
+                  </div>
+               </div>
+            </div>
+         </div>
+    </header>   <!-- header結束 -->
+
+    <section>
+        <div class="login-form">
+            <h2>會員登入</h2>
+            <form action="/submit-your-login-form" method="POST">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="password">密碼</label>
+                <input type="password" id="password" name="password" required>
+                
+                <input type="submit" value="登入">
+                
+                <div class="links">
+                    <a href="/forgot-password">忘記密碼？</a>
+                    <a href="/register" style="float:right;">註冊</a>
+                </div>
+                <div class="bottom-link">
+                    <a href="/">返回首頁</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+   
+      
+      
+      
+   <footer> <!-- footer 開始 -->
+      <div class="footer">
+         <div class="container">
+            <div class="row">
+              
+            </div>
+         </div>
+         <!-- 版權聲明 -->
+         <div class="copyright">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-10 offset-md-1">
+                     <p>© 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a><br><br>Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </footer>
+   <!-- footer 結束 -->
+
+
+
+
+   <!-- Javascript 文件 -->
+   <script src="js/jquery.min.js"></script>
+   <script src="js/bootstrap.bundle.min.js"></script>
+   <!-- <script src="js/jquery-3.0.0.min.js"></script> -->
+   <!-- 側邊欄 -->
+   <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+   <script src="js/custom.js"></script>
+
+   </body>
+   </html>
